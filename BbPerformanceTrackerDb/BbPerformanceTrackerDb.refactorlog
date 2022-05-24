@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="74f14cc8-61b8-414c-876e-47201b37e59b" ChangeDateTime="05/24/2022 13:51:39">
+    <Property Name="ElementName" Value="[dbo].[ShootingDrills].[UserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShootingDrills]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="user_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a8ff2828-31d2-4076-9672-fe0d036a52e5" ChangeDateTime="05/24/2022 13:51:43">
+    <Property Name="ElementName" Value="[dbo].[ShootingDrills].[Date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShootingDrills]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="date" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="622db235-419b-4739-998e-b0efd6bfc195" ChangeDateTime="05/24/2022 13:52:03">
+    <Property Name="ElementName" Value="[dbo].[ShootingDrills].[3ptAttepts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ShootingDrills]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="3pt_attempts" />
+  </Operation>
+</Operations>
