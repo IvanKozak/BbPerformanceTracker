@@ -1,12 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[spUpdateUser]
 	@Id int,
 	@Nickname nvarchar(50),
-	@B2CIdentifier char(36)
+	@B2CIdentifier nvarchar(50)
 AS
 
 begin
 	update [user]
 	set
-	b2c_id = @B2CIdentifier, nickname = @Nickname
+	B2CIdentifier = @B2CIdentifier, nickname = @Nickname
 	where Id = @Id
 end

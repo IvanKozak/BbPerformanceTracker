@@ -3,5 +3,6 @@
 AS
 
 begin
-	SELECT * FROM [user]
+	SELECT id, nickname, B2CIdentifier 
+    FROM [user]
 end

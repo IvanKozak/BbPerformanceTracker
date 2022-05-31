@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
 
     public Task Insert(User user)
     {
-        return _db.SaveData<User>("spInsertUser", user);
+        return _db.SaveData<object>("spInsertUser", new { user.Nickname, user.B2CIdentifier });
     }
 
     public Task Update(User user)

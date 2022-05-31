@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="3pt_attempts" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d74350bf-eea4-4233-bec7-a4c5315c5c21" ChangeDateTime="05/31/2022 23:23:28">
+    <Property Name="ElementName" Value="[dbo].[user].[b2c_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[user]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="B2CIdentifier" />
+  </Operation>
 </Operations>

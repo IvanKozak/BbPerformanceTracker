@@ -1,4 +1,5 @@
-﻿using ClassLibrary.DataAccess;
+﻿using API;
+using ClassLibrary.DataAccess;
 using ClassLibrary.DataRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,5 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.ConfigureApi();
 
 app.Run();
