@@ -65,6 +65,8 @@
     <Build Include="dbo\Tables\shooting_drill.sql" />
     <Build Include="dbo\Tables\3x3_match.sql" />
     <Build Include="dbo\Tables\user.sql" />
+    <Build Include="dbo\StoredProcedures\spUpdateUser.sql" />
+    <Build Include="dbo\StoredProcedures\spDeleteUser.sql" />
     <Build Include="dbo\StoredProcedures\spGetAllUsers.sql" />
     <Build Include="dbo\StoredProcedures\spGetUserById.sql" />
     <Build Include="dbo\StoredProcedures\spInsertUser.sql" />
