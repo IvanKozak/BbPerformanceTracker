@@ -74,4 +74,7 @@
   <ItemGroup>
     <RefactorLog Include="BbPerformanceTrackerDb.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BbPerformanceTrackerDb.publish.xml" />
+  </ItemGroup>
 </Project>

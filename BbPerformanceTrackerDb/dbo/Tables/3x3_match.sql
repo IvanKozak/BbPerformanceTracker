@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[3x3_match]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
-    [person_id] INT NOT NULL FOREIGN KEY REFERENCES person(Id), 
+    [person_id] INT NOT NULL FOREIGN KEY REFERENCES [user](Id), 
     [date] DATETIME NOT NULL, 
     [2pt_attempts] INT NOT NULL, 
     [2pt_makes] INT NULL, 

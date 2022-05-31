@@ -1,6 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[spInsertUser]
-	@Nickname int = 0,
-	@B2C_id int
+	@Nickname nvarchar(50),
+	@B2CIdentifier char(36)
 AS
-	SELECT @param1, @param2
-RETURN 0
+
+begin
+   insert into [user] (nickname, b2c_id)
+   values (@Nickname, @B2CIdentifier)
+end
