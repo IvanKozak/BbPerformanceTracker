@@ -12,28 +12,29 @@ public class UserRepository : IUserRepository
         _db = db;
     }
 
-    public Task<List<User>> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _db.LoadData<User, object>("spGetAllUsers", new { });
     }
 
-    public async Task<User> Get(int id)
+    public async Task<User?> Get(int id)
     {
-        throw new NotImplementedException();
+        var result = await _db.LoadData<User, object>("spGetUserById", new { Id = id });
+        return result.FirstOrDefault();
     }
 
-    public async Task Insert(User user)
+    public Task Insert(User user)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<User>("spInsertUser", user);
     }
 
-    public async Task Update(User user)
+    public Task Update(User user)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<User>("spUpdateUser", user);
     }
 
-    public async Task Delete(int id)
+    public Task Delete(int id)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<object>("spDeleteUser", new { Id = id });
     }
 }
