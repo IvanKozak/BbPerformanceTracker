@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{6683BD78-1A9A-4777-A161-F62FE30580AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.UnitTests", "ClassLibrary.UnitTests\ClassLibrary.UnitTests.csproj", "{CEBCD39E-B4CB-4571-BABE-3DEE781A8941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceTracker.UnitTests", "ClassLibrary.UnitTests\PerformanceTracker.UnitTests.csproj", "{CEBCD39E-B4CB-4571-BABE-3DEE781A8941}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61906E70-09ED-460F-844D-5DA16FC3CE8C}"
 	ProjectSection(SolutionItems) = preProject
