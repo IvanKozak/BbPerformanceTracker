@@ -1,6 +1,5 @@
-﻿using API;
+﻿using API.Endpoints;
 using ClassLibrary.DataAccess;
-using ClassLibrary.DataRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddUserServices();
 
 var app = builder.Build();
 
@@ -22,6 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.ConfigureApi();
+app.ConfigureUserEndpoints();
 
 app.Run();

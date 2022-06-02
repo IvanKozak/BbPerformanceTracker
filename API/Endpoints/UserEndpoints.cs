@@ -1,17 +1,22 @@
 ﻿using ClassLibrary.DataRepositories;
 using ClassLibrary.Models;
 
-namespace API;
+namespace API.Endpoints;
 
-public static class Api
+public static class UserEndpoints
 {
-    public static void ConfigureApi(this WebApplication app)
+    public static void ConfigureUserEndpoints(this WebApplication app)
     {
         app.MapGet("/users", GetUsers);
         app.MapGet("users/%id", GetUserById);
         app.MapPost("/users", InsertUser);
         app.MapPut("/users", UpdateUser);
         app.MapDelete("users/%id", DeleteUser);
+    }
+
+    public static void AddUserServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IUserRepository, UserRepository>();
     }
 
     private static async Task<IResult> GetUsers(IUserRepository userRepo)
