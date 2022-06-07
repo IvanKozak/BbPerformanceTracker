@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddUserServices();
+builder.Services.AddShootingDrillServices();
 
 var app = builder.Build();
 
@@ -22,5 +23,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.ConfigureUserEndpoints();
+app.ConfigureShootingDrillEndpoints();
 
 app.Run();
