@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.DataAccess;
+using ClassLibrary.Mappers;
 using ClassLibrary.Models;
 
 namespace ClassLibrary.DataRepositories;
@@ -19,7 +20,20 @@ public class ShootingDrillRepository : IShootingDrillRepository
 
     public async Task<List<ShootingDrill>> GetAllFromUser(User user)
     {
-        throw new NotImplementedException();
+        var drillDtos = await _db.LoadData<ShootingDrillDto, object>("spGetAllShootingDrillsByUserId", new { UserId = user.Id });
+        if (drillDtos is null)
+        {
+            return new List<ShootingDrill>();
+        }
+        var output = new List<ShootingDrill>();
+
+        foreach (var drillDto in drillDtos)
+        {
+            var drill = drillDto.Adapt(user);
+            output.Add(drill);
+        }
+
+        return output;
     }
 
     public async Task<ShootingDrill> Get(int id)
@@ -27,9 +41,9 @@ public class ShootingDrillRepository : IShootingDrillRepository
         throw new NotImplementedException();
     }
 
-    public async Task Insert(ShootingDrill shootingDrill)
+    public Task Insert(ShootingDrill shootingDrill)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<object>("spInsertShootingDrill", shootingDrill.AdaptToDto());
     }
 
     public async Task Update(ShootingDrill shootingDrill)
