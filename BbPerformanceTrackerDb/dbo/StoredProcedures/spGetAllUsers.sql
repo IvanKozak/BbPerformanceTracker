@@ -3,6 +3,6 @@
 AS
 
 begin
-	SELECT id, nickname, B2CIdentifier 
+	SELECT id, nickname, b2c_identifier AS B2CIdentifier 
     FROM [user]
 end

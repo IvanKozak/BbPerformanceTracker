@@ -4,6 +4,6 @@
 AS
 
 begin
-   insert into [user] (nickname, B2CIdentifier)
+   insert into [user] (nickname, b2c_identifier)
    values (@Nickname, @B2CIdentifier)
 end

@@ -28,4 +28,179 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="B2CIdentifier" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9386b565-a2fa-4ba9-951f-330b799b91b8" ChangeDateTime="06/04/2022 00:44:40">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="date_time" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cf6b255e-3a5b-4d1e-bcb3-5ea817ac82dd" ChangeDateTime="06/04/2022 00:49:22">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[date_time]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="502185b4-a136-496e-bbfa-ffefffd89046" ChangeDateTime="06/04/2022 00:50:10">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[accomplished]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="datetime_accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b2b9901f-d027-4f9c-bb29-be2aa2fdb44d" ChangeDateTime="06/04/2022 00:50:26">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[datetime_accomplished]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="68270413-2a87-4f26-ad7c-3ba2c5b69881" ChangeDateTime="06/06/2022 23:50:24">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[person_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="33a5af82-4a57-4040-9609-625c9cce9817" ChangeDateTime="06/06/2022 23:50:40">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[accomplished]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Accomplished," />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a005f1b2-cf6c-421b-b653-85d7ddc98bde" ChangeDateTime="06/06/2022 23:50:58">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[3pt_makes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ThreePointerMakes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9f55b8bb-8154-4b8b-98fe-02fabceea1e3" ChangeDateTime="06/06/2022 23:51:03">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[3pt_attempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ThreePointerAttempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fe7fe492-1811-4953-89c5-9d54a638149f" ChangeDateTime="06/06/2022 23:51:10">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[midrange_makes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MidrangeMakes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="01d23f99-8fd2-4f74-be0f-d37ad0ce020d" ChangeDateTime="06/06/2022 23:51:20">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[midrange_attempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MidrangeAttempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="de3d0c41-2eb6-4493-a8e3-0f7e9848151b" ChangeDateTime="06/06/2022 23:51:26">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[postup_makes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PostupMakes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="667b14cd-8555-4ff2-ae15-bd5dc66dd521" ChangeDateTime="06/06/2022 23:51:31">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[postup_attempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PostupAttempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="eedc76f6-935f-43fe-9672-809df0ca80cd" ChangeDateTime="06/06/2022 23:51:36">
+    <Property Name="ElementName" Value="[dbo].[shooting_drill].[Accomplished,]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[shooting_drill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0c28ba12-93d2-4ce9-a50f-72246417dea9" ChangeDateTime="06/06/2022 23:53:17">
+    <Property Name="ElementName" Value="[dbo].[user].[nickname]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[user]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Nickname" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="30cfbad8-95fa-435c-9469-5b87b1afa955" ChangeDateTime="06/07/2022 00:12:07">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[person_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ce4c9049-afb7-4b40-8645-0488c8380094" ChangeDateTime="06/07/2022 00:12:16">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="069b0b20-5895-4f5c-abc6-89e21f147329" ChangeDateTime="06/07/2022 00:12:25">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[2pt_attempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TwoPointAttempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="46ec728f-651c-465a-b6f4-ec9fdb7bcd47" ChangeDateTime="06/07/2022 00:12:43">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[2pt_makes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TwoPointMakes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ea09707d-8ce7-4390-88a3-f98b9d1d33cd" ChangeDateTime="06/07/2022 00:17:52">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[TwoPointAttempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="two_point_attempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2418e8c3-b237-4d72-8cb0-0689845aa207" ChangeDateTime="06/07/2022 00:17:54">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[Accomplished]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="accomplished" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2260c7ee-7c71-4fcb-9354-9a91a166fbd7" ChangeDateTime="06/07/2022 00:18:01">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[UserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="user_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6c2fc205-598f-4bea-b1e6-a50cde95b9fa" ChangeDateTime="06/07/2022 00:18:05">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ca9cc173-314b-4967-b73c-459b8852c39f" ChangeDateTime="06/07/2022 00:18:15">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[TwoPointMakes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="two_point_makes" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2e969297-2713-4050-b971-749cfb14d7aa" ChangeDateTime="06/07/2022 00:18:24">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[1pt_attempts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="one_point_attempts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="33f37191-254b-44fe-bd9d-d2f0b7451b5a" ChangeDateTime="06/07/2022 00:18:56">
+    <Property Name="ElementName" Value="[dbo].[3x3_match].[1pt_makes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[3x3_match]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="one_point_makes" />
+  </Operation>
 </Operations>

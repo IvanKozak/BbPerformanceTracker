@@ -3,5 +3,5 @@
 AS
 	begin
 		delete from [user]
-		where Id = @Id
+		where id = @Id
 	end

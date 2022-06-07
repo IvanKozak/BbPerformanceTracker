@@ -7,6 +7,6 @@ AS
 begin
 	update [user]
 	set
-	B2CIdentifier = @B2CIdentifier, nickname = @Nickname
-	where Id = @Id
+	b2c_identifier = @B2CIdentifier, nickname = @Nickname
+	where id = @Id
 end
