@@ -23,6 +23,12 @@ public class UserRepository : IUserRepository
         return result.FirstOrDefault();
     }
 
+    public async Task<User?> GetFromAuthentication(string b2cId)
+    {
+        var result = await _db.LoadData<User, object>("spGetUserByB2CId", new { B2CIdentifier = b2cId });
+        return result.FirstOrDefault();
+    }
+
     public Task Insert(User user)
     {
         return _db.SaveData<object>("spInsertUser", new { user.Nickname, user.B2CIdentifier });

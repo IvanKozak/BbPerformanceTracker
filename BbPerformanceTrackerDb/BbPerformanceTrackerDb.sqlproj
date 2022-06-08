@@ -72,6 +72,7 @@
     <Build Include="dbo\StoredProcedures\spInsertUser.sql" />
     <Build Include="dbo\StoredProcedures\spGetAllShootingDrillsByUserId.sql" />
     <Build Include="dbo\StoredProcedures\spInsertShootingDrill.sql" />
+    <Build Include="dbo\StoredProcedures\spGetUserByB2CId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BbPerformanceTrackerDb.refactorlog" />
