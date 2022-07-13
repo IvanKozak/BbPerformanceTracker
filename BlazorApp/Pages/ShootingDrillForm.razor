@@ -1,0 +1,174 @@
+﻿@page "/sdform"
+
+@using System.ComponentModel.DataAnnotations
+@implements IDisposable
+@inject ILogger<ShootingDrillForm> logger;
+@inject IShootingDrillRepository drillRepo;
+
+
+<h3>ShootingDrillForm</h3>
+
+<p class="alert-danger">
+    @errorMessage
+</p>
+
+<p class="alert-success">
+    @successMessage
+</p>
+
+<EditForm EditContext="editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        Date:
+        <InputDate @bind-Value="drillValidationModel.Accomplished" />
+    </p>
+
+    <p>
+        Three pointers makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.ThreePointerMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.ThreePointerAttempts"/>
+            </div>
+        </div>
+    </p>
+    
+    <p>
+        Midrange makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.MidrangeMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.MidrangeAttempts"/>
+            </div>
+        </div>
+    </p>
+
+    <p>
+        Postup makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.PostupMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="drillValidationModel.PostupAttempts"/>
+            </div>
+        </div>
+    </p>
+
+    
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private EditContext? editContext;
+    private ShootingDrillValidationModel drillValidationModel = new();
+    private ShootingDrill? shootingDrill;
+    private ValidationMessageStore? messageStore;
+    private User? user;
+    private string errorMessage = "";
+    private string successMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        // TODO: Implement getting user from authentication
+        user = new User
+        {
+            Id = 1,
+            B2CIdentifier = "a-2",
+            Nickname = "Palamita"
+        };
+
+        editContext = new(drillValidationModel);
+        editContext.OnValidationRequested += HandleValidationRequested;
+        messageStore = new(editContext);
+    }
+
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        errorMessage = "";
+        messageStore?.Clear();
+
+        if(drillValidationModel.ThreePointerMakes > drillValidationModel.ThreePointerAttempts)
+        {
+            messageStore?.Add(() => drillValidationModel.ThreePointerMakes, "You can't make more threes than you attempt.");
+        }
+
+        if(drillValidationModel.MidrangeMakes > drillValidationModel.MidrangeAttempts)
+        {
+            messageStore?.Add(() => drillValidationModel.MidrangeMakes, "You can't make more mid range shots than you attempt.");
+        }
+
+        if(drillValidationModel.PostupMakes > drillValidationModel.PostupAttempts)
+        {
+            messageStore?.Add(() => drillValidationModel.PostupMakes, "You can't make more post up shots than you attempt.");
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        logger.LogInformation("Valid form was submitted.");
+
+        shootingDrill = new(0,
+            user,
+            drillValidationModel.Accomplished,
+            new ShootingRecord(drillValidationModel.ThreePointerMakes, drillValidationModel.ThreePointerAttempts),
+            new ShootingRecord(drillValidationModel.MidrangeMakes, drillValidationModel.MidrangeAttempts),
+            new ShootingRecord(drillValidationModel.PostupMakes, drillValidationModel.PostupAttempts)
+        );
+
+        try
+        {
+            await drillRepo.Insert(shootingDrill);
+            logger.LogInformation("Shooting Record successfuly saved into database.");
+            drillValidationModel = new();
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Exception occured: {ex}", e.Message);
+            errorMessage = "Error was occured. Please try again later.";
+        }
+    }
+
+    public class ShootingDrillValidationModel
+    {
+        [Required]
+        public DateTime Accomplished { get; set; } = DateTime.Today;
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int ThreePointerMakes { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int ThreePointerAttempts { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int MidrangeMakes { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int MidrangeAttempts { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int PostupMakes { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int PostupAttempts { get; set; }
+    }
+
+    public void Dispose()
+    {
+        if(editContext is not null)
+        {
+            editContext.OnValidationRequested -= HandleValidationRequested;
+        } 
+    }
+}
