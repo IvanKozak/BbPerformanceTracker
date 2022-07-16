@@ -1,11 +1,28 @@
 ﻿using ClassLibrary.DataAccess;
 using ClassLibrary.DataRepositories;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
+builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
+
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy =>
+    {
+        policy.RequireClaim("jobTitle", "Admin");
+    });
+});
+
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
@@ -26,6 +43,20 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseRewriter(
+    new RewriteOptions().Add(context =>
+    {
+        if (context.HttpContext.Request.Path == "/MicrosoftIdentity/Account/SignedOut")
+        {
+            context.HttpContext.Response.Redirect("/");
+        }
+    })
+    );
+
+app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
