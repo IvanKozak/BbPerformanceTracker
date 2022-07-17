@@ -1,4 +1,6 @@
 ﻿@page "/"
+@inject IUserRepository userRepo
+@inject AuthenticationStateProvider authProvider
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +9,37 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    private User? loggedInUser;
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+
+        await LoadAndVerifyUser();
+    }
+
+    private async Task LoadAndVerifyUser()
+    {
+        var authState = await authProvider.GetAuthenticationStateAsync();
+        var objectId = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("objectidentifier"))?.Value;
+
+        if(string.IsNullOrWhiteSpace(objectId) == false)
+        {
+            loggedInUser = await userRepo.GetFromAuthentication(objectId) ?? new();
+
+            var name = authState.User.Claims.FirstOrDefault(c => c.Type.Equals("name"))?.Value;
+            var email = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("email"))?.Value;
+
+            var isDirty = false;
+
+            if(objectId != loggedInUser.B2CIdentifier)
+            {
+                
+            }
+        }
+
+        
+    }
+}
