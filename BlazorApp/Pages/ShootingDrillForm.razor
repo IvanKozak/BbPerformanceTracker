@@ -1,9 +1,11 @@
 ﻿@page "/sdform"
-
+@attribute [Authorize]
 @using System.ComponentModel.DataAnnotations
 @implements IDisposable
+@inject AuthenticationStateProvider authProvider;
 @inject ILogger<ShootingDrillForm> logger;
 @inject IShootingDrillRepository drillRepo;
+@inject IUserRepository userRepo;
 
 
 <h3>ShootingDrillForm</h3>
@@ -73,7 +75,7 @@
     private ShootingDrillValidationModel drillValidationModel = new();
     private ShootingDrill? shootingDrill;
     private ValidationMessageStore? messageStore;
-    private User? user;
+    private User? loggedInUser;
     private string errorMessage = "";
     private string successMessage = "";
 
@@ -81,17 +83,11 @@
     {
         base.OnInitialized();
 
-        // TODO: Implement getting user from authentication
-        user = new User
-        {
-            Id = 1,
-            B2CIdentifier = "a-2",
-            Nickname = "Palamita"
-        };
-
         editContext = new(drillValidationModel);
         editContext.OnValidationRequested += HandleValidationRequested;
         messageStore = new(editContext);
+
+        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
     }
 
     private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
@@ -120,7 +116,7 @@
         logger.LogInformation("Valid form was submitted.");
 
         shootingDrill = new(0,
-            user,
+            loggedInUser,
             drillValidationModel.Accomplished,
             new ShootingRecord(drillValidationModel.ThreePointerMakes, drillValidationModel.ThreePointerAttempts),
             new ShootingRecord(drillValidationModel.MidrangeMakes, drillValidationModel.MidrangeAttempts),
