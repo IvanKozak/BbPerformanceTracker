@@ -1,0 +1,37 @@
+﻿@page "/profile/{id}"
+
+@using ClassLibrary.DataRepositories
+@using ClassLibrary.Models
+@inject IUserRepository userRepo;
+@inject IShootingDrillRepository drillRepo;
+@inject NavigationManager navManager;
+<h3>UserProfile</h3>
+
+<h4>Shooting drill records</h4>
+
+<div style="height:1000px;overflow-y:scroll">
+    
+    <Virtualize Items="shootingDrills" Context="drill">
+        <ShootingDrillTab shootingDrill="drill" />
+    </Virtualize>
+
+    
+</div>
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private User? user;
+    private List<ShootingDrill> shootingDrills = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await userRepo.Get(Int32.Parse(Id));
+        if (user is null)
+        {
+            navManager.NavigateTo("/");
+        }
+        shootingDrills = await drillRepo.GetAllFromUser(user!);
+    }
+}
