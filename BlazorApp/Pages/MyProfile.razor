@@ -1,0 +1,22 @@
+﻿@page "/MyProfile"
+
+@attribute [Authorize]
+@inject AuthenticationStateProvider authProvider;
+@inject IUserRepository userRepo;
+
+<h3>MyProfile</h3>
+
+@if (loggedInUser is not null)
+{
+    <UserProfile Id="@loggedInUser.Id.ToString()"></UserProfile>
+}
+
+
+@code {
+    private User? loggedInUser;
+
+    protected async override Task OnInitializedAsync()
+    {
+        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
+    }
+}
