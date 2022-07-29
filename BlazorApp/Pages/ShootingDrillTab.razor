@@ -1,7 +1,7 @@
 ﻿<div class="container">
     <div class="row">
         <div class="col-sm">
-            @shootingDrill.Accomplished;
+            @DateOnly.FromDateTime(shootingDrill.Accomplished)
         </div>
         <div class="col-sm">
             <div class="row">
@@ -9,7 +9,7 @@
                     Postups
                 </div>
                 <div class="col">
-                    @Math.Round(shootingDrill.PostUps.Percentage, 2 ) %
+                    @Math.Round(shootingDrill.PostUps.Percentage, 2) %
                 </div>
                 <div class="col">
                     @shootingDrill.PostUps.Makes / @shootingDrill.PostUps.Attempts
@@ -20,7 +20,7 @@
                     Midrange
                 </div>
                 <div class="col">
-                    @Math.Round(shootingDrill.MidrangeShots.Percentage, 2 ) %
+                    @Math.Round(shootingDrill.MidrangeShots.Percentage, 2) %
                 </div>
                 <div class="col">
                     @shootingDrill.MidrangeShots.Makes / @shootingDrill.MidrangeShots.Attempts
@@ -30,7 +30,7 @@
                         Threes
                     </div>
                     <div class="col">
-                        @Math.Round(shootingDrill.ThreePointers.Percentage, 2 ) %
+                        @Math.Round(shootingDrill.ThreePointers.Percentage, 2) %
                     </div>
                     <div class="col">
                         @shootingDrill.ThreePointers.Makes / @shootingDrill.ThreePointers.Attempts
@@ -42,6 +42,8 @@
 </div>
 
 @code {
+
     [Parameter]
     public ShootingDrill? shootingDrill { get; set; }
+
 }

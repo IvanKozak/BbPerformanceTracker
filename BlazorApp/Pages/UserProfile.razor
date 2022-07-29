@@ -5,9 +5,11 @@
 @inject IUserRepository userRepo;
 @inject IShootingDrillRepository drillRepo;
 @inject NavigationManager navManager;
-<h3>UserProfile</h3>
+<h1>UserProfile</h1>
 
-<h4>Shooting drill records</h4>
+<ShootingDrillSummary Drills="shootingDrills" />
+
+<h2>Shooting drill records</h2>
 
 <div style="height:1000px;overflow-y:scroll">
     
@@ -21,7 +23,7 @@
 
 @code {
     [Parameter]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
     private User? user;
     private List<ShootingDrill> shootingDrills = new();
 

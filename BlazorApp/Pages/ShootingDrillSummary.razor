@@ -1,0 +1,35 @@
+﻿<h3>ShootingDrillSummary</h3>
+@if (Drills.Count != 0)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                Threes %
+            </div>
+            <div class="col">
+                Midrange %
+            </div>
+            <div class="col">
+                Postup %
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Drills.Average(d => d.ThreePointers.Percentage)
+            </div>
+            <div class="col">
+                @Drills.Average(d => d.MidrangeShots.Percentage)
+            </div>
+            <div class="col">
+                @Drills.Average(d => d.PostUps.Percentage)
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public List<ShootingDrill> Drills { get; set; }
+
+}
