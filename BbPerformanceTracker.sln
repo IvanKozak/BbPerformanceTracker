@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BbPerformanceTracker.UnitTests", "BbPerformanceTracker.UnitTests\BbPerformanceTracker.UnitTests.csproj", "{656CCF25-DD28-4E65-994A-019789A0241C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BbPerformanceTracker.Tests", "BbPerformanceTracker.UnitTests\BbPerformanceTracker.Tests.csproj", "{656CCF25-DD28-4E65-994A-019789A0241C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{1816B8E5-B11B-4EDF-AE88-086B2D07129B}"
 EndProject

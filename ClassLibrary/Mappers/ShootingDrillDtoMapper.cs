@@ -1,7 +1,7 @@
 ﻿using ClassLibrary.Models;
 
 namespace ClassLibrary.Mappers;
-public static class ShootingDrillMapper
+public static class ShootingDrillDtoMapper
 {
     public static ShootingDrill Adapt(this ShootingDrillDto shootingDrillDto, User user)
     {
@@ -28,4 +28,5 @@ public static class ShootingDrillMapper
             shootingDrill.PostUps.Makes,
             shootingDrill.PostUps.Attempts);
     }
+
 }

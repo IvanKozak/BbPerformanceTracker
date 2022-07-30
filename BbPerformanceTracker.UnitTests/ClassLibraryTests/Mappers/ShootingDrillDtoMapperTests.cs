@@ -1,15 +1,15 @@
 ﻿using ClassLibrary.Mappers;
 using ClassLibrary.Models;
-using FluentAssertions;
 
 namespace BbPerformanceTracker.UnitTests.ClassLibraryTests.Mappers;
-public class ShootingDrillMapperTests
+public class ShootingDrillDtoMapperTests
 {
     private readonly User _user;
     private readonly ShootingDrill _shootingDrill;
     private readonly ShootingDrillDto _shootingDrillDto;
 
-    public ShootingDrillMapperTests()
+
+    public ShootingDrillDtoMapperTests()
     {
         _user = new User()
         {
@@ -27,6 +27,7 @@ public class ShootingDrillMapperTests
             new ShootingRecord(5, 6));
 
         _shootingDrillDto = new ShootingDrillDto(1, 2, new DateTime(1), 1, 2, 3, 4, 5, 6);
+
     }
 
     [Fact]
