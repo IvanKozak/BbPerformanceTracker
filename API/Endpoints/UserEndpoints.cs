@@ -8,10 +8,10 @@ public static class UserEndpoints
     public static void ConfigureUserEndpoints(this WebApplication app)
     {
         app.MapGet("/users", GetUsers);
-        app.MapGet("users/%id", GetUserById);
+        app.MapGet("users/{id}", GetUserById);
         app.MapPost("/users", InsertUser);
         app.MapPut("/users", UpdateUser);
-        app.MapDelete("users/%id", DeleteUser);
+        app.MapDelete("users/{id}", DeleteUser);
     }
 
     public static void AddUserServices(this IServiceCollection services)

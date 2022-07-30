@@ -8,8 +8,11 @@ public static class ShootingDrillEndpoints
 
     public static void ConfigureShootingDrillEndpoints(this WebApplication app)
     {
-        app.MapGet("/users/%id/shootingdrills", GetShootingDrillsByUserId);
+        app.MapGet("/users/{id}/shootingdrills", GetShootingDrillsByUserId);
+        app.MapGet("/shootingdrills", GetAllShootingDrills);
         app.MapPost("/shootingdrills", InsertShootingDrill);
+        app.MapPut("/shootingdrills", UpdateShootingDrill);
+        app.MapDelete("/shootingdrills/{id}", DeleteShootingDrill);
     }
 
     public static void AddShootingDrillServices(this IServiceCollection services)
@@ -30,11 +33,49 @@ public static class ShootingDrillEndpoints
         }
     }
 
-    private static async Task<IResult> InsertShootingDrill(IShootingDrillRepository shootingDrillRepo, ShootingDrill shootingDrill)
+    private static async Task<IResult> GetAllShootingDrills(IShootingDrillRepository shootingDrillRepo)
     {
         try
         {
-            await shootingDrillRepo.Insert(shootingDrill);
+            return Results.Ok(await shootingDrillRepo.GetAll());
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
+    private static async Task<IResult> InsertShootingDrill(IShootingDrillRepository shootingDrillRepo, ShootingDrill drill)
+    {
+        try
+        {
+            await shootingDrillRepo.Insert(drill);
+            return Results.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
+    private static async Task<IResult> UpdateShootingDrill(IShootingDrillRepository shootingDrillRepo, ShootingDrill drill)
+    {
+        try
+        {
+            await shootingDrillRepo.Update(drill);
+            return Results.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
+    private static async Task<IResult> DeleteShootingDrill(IShootingDrillRepository shootingDrillRepo, int id)
+    {
+        try
+        {
+            await shootingDrillRepo.Delete(id);
             return Results.Ok();
         }
         catch (Exception ex)
