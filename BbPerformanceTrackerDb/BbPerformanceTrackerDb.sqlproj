@@ -65,14 +65,18 @@
     <Build Include="dbo\Tables\shooting_drill.sql" />
     <Build Include="dbo\Tables\three_on_three_match.sql" />
     <Build Include="dbo\Tables\user.sql" />
-    <Build Include="dbo\StoredProcedures\spUpdateUser.sql" />
-    <Build Include="dbo\StoredProcedures\spDeleteUser.sql" />
-    <Build Include="dbo\StoredProcedures\spGetAllUsers.sql" />
-    <Build Include="dbo\StoredProcedures\spGetUserById.sql" />
-    <Build Include="dbo\StoredProcedures\spInsertUser.sql" />
-    <Build Include="dbo\StoredProcedures\spGetAllShootingDrillsByUserId.sql" />
-    <Build Include="dbo\StoredProcedures\spInsertShootingDrill.sql" />
-    <Build Include="dbo\StoredProcedures\spGetUserByB2CId.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_GetAllByUserId.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spUser_GetByB2CId.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BbPerformanceTrackerDb.refactorlog" />

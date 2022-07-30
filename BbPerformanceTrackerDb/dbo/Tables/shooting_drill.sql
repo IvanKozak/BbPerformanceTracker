@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[shooting_drill]
 (
 	[id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [user_id] INT FOREIGN KEY REFERENCES [user](id) NOT NULL, 
+    [user_id] INT NOT NULL FOREIGN KEY REFERENCES [user](id) ON DELETE CASCADE, 
     [accomplished] DATETIME NOT NULL, 
     [three_pointer_makes] INT NOT NULL, 
     [three_pointer_attempts] INT NOT NULL, 
