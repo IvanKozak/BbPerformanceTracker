@@ -15,12 +15,21 @@ public class ShootingDrillRepository : IShootingDrillRepository
 
     public async Task<List<ShootingDrill>> GetAll()
     {
-        throw new NotImplementedException();
+        var drillJoinUserDtos = await _db.LoadData<ShootingDrillJoinUserDto, object>("spShootingDrill_GetAll", new { });
+        var output = new List<ShootingDrill>();
+
+        foreach (var drillJoinUserDto in drillJoinUserDtos)
+        {
+            var drill = drillJoinUserDto.Adapt();
+            output.Add(drill);
+        }
+
+        return output;
     }
 
     public async Task<List<ShootingDrill>> GetAllFromUser(User user)
     {
-        var drillDtos = await _db.LoadData<ShootingDrillDto, object>("spGetAllShootingDrillsByUserId", new { UserId = user.Id });
+        var drillDtos = await _db.LoadData<ShootingDrillDto, object>("spShootingDrill_GetAllByUserId", new { UserId = user.Id });
         if (drillDtos is null)
         {
             return new List<ShootingDrill>();
@@ -36,23 +45,24 @@ public class ShootingDrillRepository : IShootingDrillRepository
         return output;
     }
 
-    public async Task<ShootingDrill> Get(int id)
+    public async Task<ShootingDrill?> Get(int id)
     {
-        throw new NotImplementedException();
+        var drillDto = await _db.LoadData<ShootingDrillJoinUserDto, object>("spShootingDrill_GetById", new { Id = id });
+        return drillDto.FirstOrDefault()?.Adapt();
     }
 
     public Task Insert(ShootingDrill shootingDrill)
     {
-        return _db.SaveData<object>("spInsertShootingDrill", shootingDrill.AdaptToDto());
+        return _db.SaveData<ShootingDrillDto>("spShootingDrill_Insert", shootingDrill.AdaptToDto());
     }
 
-    public async Task Update(ShootingDrill shootingDrill)
+    public Task Update(ShootingDrill shootingDrill)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<ShootingDrillDto>("spShootingDrill_Update", shootingDrill.AdaptToDto());
     }
 
-    public async Task Delete(int id)
+    public Task Delete(int id)
     {
-        throw new NotImplementedException();
+        return _db.SaveData<object>("spShootingDrill_Delete", new { Id = id });
     }
 }
