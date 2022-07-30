@@ -1,7 +1,7 @@
-﻿using Dapper;
-using Microsoft.Extensions.Configuration;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace ClassLibrary.DataAccess;
 
@@ -17,13 +17,13 @@ public class SqlDataAccess : ISqlDataAccess
     {
         using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionId));
 
-        return await connection.QueryAsync<T>(storedProcedure, parameters, commandType : CommandType.StoredProcedure);
+        return await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
     }
-    
+
     public async Task SaveData<T>(string storedProcedure, T parameters, string connectionId = "Default")
     {
         using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionId));
 
-        await connection.ExecuteAsync(storedProcedure, parameters, commandType : CommandType.StoredProcedure);
+        await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
     }
 }
