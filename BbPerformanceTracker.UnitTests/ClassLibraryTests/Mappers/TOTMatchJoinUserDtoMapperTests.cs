@@ -2,13 +2,13 @@
 using ClassLibrary.Models;
 
 namespace BbPerformanceTracker.Tests.ClassLibraryTests.Mappers;
-public class TOTMatchJoinUserDtoTests
+public class TOTMatchJoinUserDtoMapperTests
 {
     private readonly User _user;
     private readonly ThreeOnThreeMatch _match;
     private readonly TOTMatchJoinUserDto _matchDto;
 
-    public TOTMatchJoinUserDtoTests()
+    public TOTMatchJoinUserDtoMapperTests()
     {
         _user = new User()
         {
@@ -52,5 +52,13 @@ public class TOTMatchJoinUserDtoTests
         var result = _matchDto.Adapt();
 
         result.Should().BeEquivalentTo(_match);
+    }
+
+    [Fact]
+    public void AdaptToDto_ShouldCorrectlyMapTheObject()
+    {
+        var result = _match.AdaptToDto();
+
+        result.Should().BeEquivalentTo(_matchDto);
     }
 }
