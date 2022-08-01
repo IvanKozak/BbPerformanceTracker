@@ -17,7 +17,7 @@ public static class ShootingDrillEndpoints
 
     public static void AddShootingDrillServices(this IServiceCollection services)
     {
-        services.AddSingleton<IShootingDrillRepository, ShootingDrillRepository>();
+        services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
     }
 
     private static async Task<IResult> GetShootingDrillsByUserId(IUserRepository userRepo, IShootingDrillRepository shootingDrillRepo, int id)

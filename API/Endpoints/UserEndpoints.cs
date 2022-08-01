@@ -16,7 +16,7 @@ public static class UserEndpoints
 
     public static void AddUserServices(this IServiceCollection services)
     {
-        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 
     private static async Task<IResult> GetUsers(IUserRepository userRepo)
