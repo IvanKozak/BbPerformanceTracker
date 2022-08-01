@@ -2,13 +2,13 @@
 using ClassLibrary.Models;
 
 namespace BbPerformanceTracker.Tests.ClassLibraryTests.Mappers;
-public class TOTMatchJoinUserDtoMapperTests
+public class TOTMatchDtoMapperTests
 {
     private readonly User _user;
     private readonly ThreeOnThreeMatch _match;
-    private readonly TOTMatchJoinUserDto _matchDto;
+    private readonly TOTMatchDto _matchDto;
 
-    public TOTMatchJoinUserDtoMapperTests()
+    public TOTMatchDtoMapperTests()
     {
         _user = new User()
         {
@@ -28,11 +28,9 @@ public class TOTMatchJoinUserDtoMapperTests
             12,
             13);
 
-        _matchDto = new TOTMatchJoinUserDto(
+        _matchDto = new TOTMatchDto(
             1,
             2,
-            "a",
-            "b",
             new DateTime(3),
             400,
             500,
@@ -49,16 +47,16 @@ public class TOTMatchJoinUserDtoMapperTests
     [Fact]
     public void Adapt_ShouldCorrectlyMapTheObject()
     {
-        var result = _matchDto.Adapt();
+        var result = _matchDto.Adapt(_user);
 
         result.Should().BeEquivalentTo(_match);
     }
 
-    //[Fact]
-    //public void AdaptToDto_ShouldCorrectlyMapTheObject()
-    //{
-    //    var result = _match.AdaptToDto();
+    [Fact]
+    public void AdaptToDto_ShouldCorrectlyMapTheObject()
+    {
+        var result = _match.AdaptToDto();
 
-    //    result.Should().BeEquivalentTo(_matchDto);
-    //}
+        result.Should().BeEquivalentTo(_matchDto);
+    }
 }

@@ -22,24 +22,24 @@ public static class TOTMatchJoinUserDtoMapper
             dto.Assists);
     }
 
-    public static TOTMatchJoinUserDto AdaptToDto(this ThreeOnThreeMatch match)
-    {
-        return new TOTMatchJoinUserDto(
-            match.Id,
-            match.Player.Id,
-            match.Player.Nickname,
-            match.Player.B2CIdentifier,
-            match.Accomplished,
-            match.GameScore.OwnTeamScore,
-            match.GameScore.OtherTeamScore,
-            match.OnePointShots.Makes,
-            match.OnePointShots.Attempts,
-            match.TwoPointShots.Makes,
-            match.TwoPointShots.Attempts,
-            match.FreeThrows.Makes,
-            match.FreeThrows.Attempts,
-            match.Rebounds,
-            match.Assists);
-    }
+    //public static TOTMatchJoinUserDto AdaptToDto(this ThreeOnThreeMatch match)
+    //{
+    //    return new TOTMatchJoinUserDto(
+    //        match.Id,
+    //        match.Player.Id,
+    //        match.Player.Nickname,
+    //        match.Player.B2CIdentifier,
+    //        match.Accomplished,
+    //        match.GameScore.OwnTeamScore,
+    //        match.GameScore.OtherTeamScore,
+    //        match.OnePointShots.Makes,
+    //        match.OnePointShots.Attempts,
+    //        match.TwoPointShots.Makes,
+    //        match.TwoPointShots.Attempts,
+    //        match.FreeThrows.Makes,
+    //        match.FreeThrows.Attempts,
+    //        match.Rebounds,
+    //        match.Assists);
+    //}
 
 }
