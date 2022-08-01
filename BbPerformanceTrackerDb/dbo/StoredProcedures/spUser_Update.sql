@@ -6,8 +6,8 @@
 AS
 
     BEGIN
-	    update [user]
-	    set
+	    UPDATE [user]
+	    SET
 	    b2c_identifier = @B2CIdentifier, nickname = @Nickname
-	    where id = @Id
+	    WHERE id = @Id
     END

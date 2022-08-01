@@ -5,6 +5,6 @@
 AS
 
     BEGIN
-       insert into [user] (nickname, b2c_identifier)
-       values (@Nickname, @B2CIdentifier)
+       INSERT INTO [user] (nickname, b2c_identifier)
+       VALUES (@Nickname, @B2CIdentifier)
     END

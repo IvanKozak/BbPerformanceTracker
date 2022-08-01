@@ -77,6 +77,12 @@
     <Build Include="dbo\StoredProcedures\spShootingDrill_GetById.sql" />
     <Build Include="dbo\StoredProcedures\spShootingDrill_Update.sql" />
     <Build Include="dbo\StoredProcedures\spShootingDrill_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_GetAllByUserId.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_GetById.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spTOTMatch_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BbPerformanceTrackerDb.refactorlog" />

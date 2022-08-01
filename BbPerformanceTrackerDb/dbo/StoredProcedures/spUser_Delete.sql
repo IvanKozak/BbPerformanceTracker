@@ -4,8 +4,8 @@
 AS
 	
     BEGIN
-        delete from shooting_drill
-        where user_id = @Id
-		delete from [user]
-		where id = @Id
+        DELETE FROM shooting_drill
+        WHERE [user_id] = @Id
+		DELETE FROM [user]
+		WHERE id = @Id
 	END

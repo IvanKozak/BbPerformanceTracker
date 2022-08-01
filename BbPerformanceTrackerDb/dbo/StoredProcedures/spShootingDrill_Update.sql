@@ -14,7 +14,7 @@ AS
     BEGIN
         UPDATE shooting_drill
         SET
-	    user_id = @UserId, accomplished = @Accomplished,
+	    [user_id] = @UserId, accomplished = @Accomplished,
         three_pointer_makes = @ThreePointerMakes, 
         three_pointer_attempts = @ThreePointerAttempts, 
         midrange_makes = @MidrangeMakes, 

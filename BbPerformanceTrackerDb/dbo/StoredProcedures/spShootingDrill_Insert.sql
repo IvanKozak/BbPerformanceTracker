@@ -12,6 +12,14 @@
 AS
 
     BEGIN
-	    INSERT INTO [shooting_drill] (user_id, accomplished, three_pointer_makes, three_pointer_attempts, midrange_makes, midrange_attempts, postup_makes, postup_attempts)
-        VALUES (@UserId, @Accomplished, @ThreePointerMakes, @ThreePointerAttempts, @MidrangeMakes, @MidrangeAttempts, @PostupMakes, @PostupAttempts)
+	    INSERT INTO [shooting_drill] 
+            ([user_id], accomplished,
+            three_pointer_makes, three_pointer_attempts,
+            midrange_makes, midrange_attempts,
+            postup_makes, postup_attempts)
+        VALUES 
+            (@UserId, @Accomplished,
+            @ThreePointerMakes, @ThreePointerAttempts,
+            @MidrangeMakes, @MidrangeAttempts,
+            @PostupMakes, @PostupAttempts)
     END
