@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddUserServices();
 builder.Services.AddShootingDrillServices();
+builder.Services.AddTOTMatchServices();
 
 var app = builder.Build();
 
@@ -24,5 +25,6 @@ app.UseHttpsRedirection();
 
 app.ConfigureUserEndpoints();
 app.ConfigureShootingDrillEndpoints();
+app.ConfigureTOTMatchEndpoints();
 
 app.Run();
