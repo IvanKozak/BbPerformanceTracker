@@ -1,0 +1,46 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @DateOnly.FromDateTime(match.Accomplished)
+        </div>
+        <div class="col">
+            <div class="col">
+                PTS
+            </div>
+            <div class="col">
+                @match.OwnPoints
+            </div>
+        </div>
+        <div class="col">
+            <div class="col">
+                AST
+            </div>
+            <div class="col">
+                @match.Assists
+            </div>
+        </div>
+        <div class="col">
+            <div class="col">
+                RB
+            </div>
+            <div class="col">
+                @match.Rebounds
+            </div>
+        </div>
+         <div class="col">
+            <div class="col">
+                eFG
+            </div>
+            <div class="col">
+                @Math.Round(match.EffectiveFieldGoalPercentage())%
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public ThreeOnThreeMatch? match { get; set; }
+
+}
