@@ -1,0 +1,230 @@
+﻿@page "/totmatchform"
+@using System.ComponentModel.DataAnnotations
+@attribute [Authorize]
+@implements IDisposable
+@inject AuthenticationStateProvider authProvider;
+@inject ILogger<ThreeOnThreeMatchForm> logger;
+@inject IThreeOnThreeMatchRepository matchRepo;
+@inject IUserRepository userRepo;
+
+
+<h3>ThreeOnThreeMatchForm</h3>
+
+<p class="alert-danger">
+    @errorMessage
+</p>
+
+<p class="alert-success">
+    @successMessage
+</p>
+
+<EditForm EditContext="editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        Date:
+        <InputDate @bind-Value="matchValidationModel.Accomplished" />
+    </p>
+
+    <p>
+        Game score:
+        <div class="row">
+            <div class="col-auto">
+                <div class="col-auto">
+                    Your team:
+                </div>
+                <div class="col-auto">
+                    <InputNumber @bind-Value="matchValidationModel.OwnTeamScore"/>
+                </div>
+            </div>
+            
+            <div class="col-auto">
+                <div class="col-auto">
+                    Other team:
+                </div>
+
+                <div class="col-auto">
+                    <InputNumber @bind-Value="matchValidationModel.OtherTeamScore"/>
+                </div>
+                
+            </div>
+        </div>
+    </p>
+
+    <p>
+        One point makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.OnePointMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.OnePointAttempts"/>
+            </div>
+        </div>
+    </p>
+    
+    <p>
+        Two points makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.TwoPointMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.TwoPointAttempts"/>
+            </div>
+        </div>
+    </p>
+
+    <p>
+        Free throw makes/attempts:
+        <div class="row">
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.FreeThrowMakes"/>
+            </div>
+            
+            <div class="col-auto">
+                <InputNumber @bind-Value="matchValidationModel.FreeThrowAttempts"/>
+            </div>
+        </div>
+    </p>
+
+    <p>
+        Rebounds:
+        <InputNumber @bind-Value="matchValidationModel.Rebounds" />
+    </p>
+
+    <p>
+        Assists:
+        <InputNumber @bind-Value="matchValidationModel.Assists" />
+    </p>
+
+    
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private EditContext? editContext;
+    private TOTMatchValidationModel matchValidationModel = new();
+    private ThreeOnThreeMatch? match;
+    private ValidationMessageStore? messageStore;
+    private User? loggedInUser;
+    private string errorMessage = "";
+    private string successMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        editContext = new(matchValidationModel);
+        editContext.OnValidationRequested += HandleValidationRequested;
+        messageStore = new(editContext);
+
+        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
+    }
+
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        errorMessage = "";
+        messageStore?.Clear();
+
+        if(matchValidationModel.OnePointMakes > matchValidationModel.OnePointAttempts)
+        {
+            messageStore?.Add(() => matchValidationModel.OnePointMakes, "You can't make more threes than you attempt.");
+        }
+
+        if(matchValidationModel.TwoPointMakes > matchValidationModel.TwoPointAttempts)
+        {
+            messageStore?.Add(() => matchValidationModel.TwoPointMakes, "You can't make more mid range shots than you attempt.");
+        }
+
+        if(matchValidationModel.FreeThrowMakes > matchValidationModel.FreeThrowAttempts)
+        {
+            messageStore?.Add(() => matchValidationModel.FreeThrowMakes, "You can't make more post up shots than you attempt.");
+        }
+
+        var ownPoints = matchValidationModel.OnePointMakes + (matchValidationModel.TwoPointMakes * 2) + matchValidationModel.FreeThrowMakes;
+        var teammatesScored = matchValidationModel.OwnTeamScore - ownPoints;
+        if (matchValidationModel.Assists > teammatesScored)
+        {
+            messageStore?.Add(() => matchValidationModel.Assists, "Can't make more assists than your teammates scored points.");;
+        }
+        if (ownPoints > matchValidationModel.OwnTeamScore)
+        {
+            messageStore?.Add(() => matchValidationModel.OwnTeamScore, "You can't score more points than your whole team.");
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        logger.LogInformation("Valid form was submitted.");
+
+        match = new(0,
+            loggedInUser,
+            matchValidationModel.Accomplished,
+            new Score(matchValidationModel.OwnTeamScore, matchValidationModel.OtherTeamScore),
+            new ShootingRecord(matchValidationModel.OnePointMakes, matchValidationModel.OnePointAttempts),
+            new ShootingRecord(matchValidationModel.TwoPointMakes, matchValidationModel.TwoPointAttempts),
+            new ShootingRecord(matchValidationModel.FreeThrowMakes, matchValidationModel.FreeThrowAttempts),
+            matchValidationModel.Rebounds, matchValidationModel.Assists
+        );
+
+        try
+        {
+            await matchRepo.Insert(match);
+            logger.LogInformation("Three on three match successfuly saved into database.");
+            matchValidationModel = new();
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Exception occured: {ex}", e.Message);
+            errorMessage = "Error was occured. Please try again later.";
+        }
+    }
+
+    public class TOTMatchValidationModel
+    {
+        [Required]
+        public DateTime Accomplished { get; set; } = DateTime.Today;
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int OwnTeamScore { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int OtherTeamScore { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int OnePointMakes { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int OnePointAttempts { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int TwoPointMakes { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int TwoPointAttempts { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int FreeThrowMakes { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int FreeThrowAttempts { get; set; }
+
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int Rebounds { get; set; }
+        
+        [Range(0, 1000, ErrorMessage ="Value is not between 0 and 1000.")]
+        public int Assists { get; set; }
+    }
+
+    public void Dispose()
+    {
+        if(editContext is not null)
+        {
+            editContext.OnValidationRequested -= HandleValidationRequested;
+        } 
+    }
+}

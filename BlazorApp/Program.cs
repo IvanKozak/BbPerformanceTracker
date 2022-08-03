@@ -26,6 +26,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
+builder.Services.AddScoped<IThreeOnThreeMatchRepository, ThreeOnThreeMatchRepository>();
 
 var app = builder.Build();
 
