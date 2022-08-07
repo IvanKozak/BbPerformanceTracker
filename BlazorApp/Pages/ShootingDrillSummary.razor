@@ -1,27 +1,26 @@
-﻿<h3>ShootingDrillSummary</h3>
-@if (Drills.Count != 0)
+﻿@if (Drills.Count != 0)
 {
     <div class="container">
         <div class="row">
             <div class="col">
-                Threes %
+                Threes%
             </div>
             <div class="col">
-                Midrange %
+                Midrange%
             </div>
             <div class="col">
-                Postup %
+                Postup%
             </div>
         </div>
         <div class="row">
             <div class="col">
-                @Drills.Average(d => d.ThreePointers.Percentage)
+                @Math.Round(100 * Drills.Average(d => d.ThreePointers.Percentage), 1)%
             </div>
             <div class="col">
-                @Drills.Average(d => d.MidrangeShots.Percentage)
+                @Math.Round(100 * Drills.Average(d => d.MidrangeShots.Percentage), 1)%
             </div>
             <div class="col">
-                @Drills.Average(d => d.PostUps.Percentage)
+                @Math.Round(100 * Drills.Average(d => d.PostUps.Percentage), 1)%
             </div>
         </div>
     </div>

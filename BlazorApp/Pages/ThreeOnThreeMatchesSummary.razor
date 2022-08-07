@@ -1,0 +1,47 @@
+﻿@if (Matches.Count != 0)
+{
+    <div class="container">
+        Averages
+        <div class="row">
+            <div class="col">
+                <div class="col">
+                    PTS
+                </div>
+                <div class="col">
+                @Math.Round(Matches.Average(m => m.OwnPoints), 2)
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                    ASS
+                </div>
+                <div class="col">
+                @Math.Round(Matches.Average(m => m.Assists), 2)
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                    REB
+                </div>
+                <div class="col">
+                @Math.Round(Matches.Average(m => m.Rebounds), 2)
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                    eFG
+                </div>
+                <div class="col">
+                @Math.Round(Matches.Average(m => m.EffectiveFieldGoalPercentage()), 1)%
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public List<ThreeOnThreeMatch> Matches { get; set; }
+
+}
