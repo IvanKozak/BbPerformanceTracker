@@ -1,3 +1,5 @@
+[![build and test](https://github.com/IvanKozak/BbPerformanceTracker/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/IvanKozak/BbPerformanceTracker/actions/workflows/build-and-test.yml)
+
 # BbPerformanceTracker
 Web app that helps with tracking your performance in 3x3 basketball matches and training sessions.
 
