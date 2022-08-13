@@ -5,7 +5,36 @@ Web app that helps with tracking your performance in 3x3 basketball matches and 
 
 ## Description
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+### Blazor Server App
+
+In an web application, user can click on  *Login* button on main page in order to sign in or sign up. Authentication process is enabled by Azure Active Directory B2C.
+
+<img width="458" alt="signin" src="https://user-images.githubusercontent.com/32243530/184495718-e34d0d27-b71a-4803-9bc9-189edf691f41.png">
+
+When user is logged in, he can submit shooting drill form or 3x3 match form by navigating to respective page.
+
+<img width="548" alt="sdform" src="https://user-images.githubusercontent.com/32243530/184496098-a36a1eea-4a06-4933-b235-895906606632.png">
+
+<img width="557" alt="totmatchform" src="https://user-images.githubusercontent.com/32243530/184496101-d748f396-739b-4279-bbd9-0047f2f06c20.png">
+
+Data is stored in MS SQL database and is accessed via repositories in class library with use of Dapper. 
+
+Also user can access its own profile page.
+
+<img width="923" alt="profile" src="https://user-images.githubusercontent.com/32243530/184496240-eec61604-97eb-47b9-880f-adda21efad38.png">
+
+Users can see profiles of other users by following /profile/**user_id**.
+
+### API
+
+API is now allowing for CRUD access to user, shooting drill and 3x3 match entries.
+
+<img width="208" alt="apiuserendpoints" src="https://user-images.githubusercontent.com/32243530/184497041-651680ab-c7a1-444c-affe-9bee4a065e1f.png">
+
+<img width="274" alt="apisdendpoints" src="https://user-images.githubusercontent.com/32243530/184497046-399c1b22-549f-40b1-a350-bd3e7767937d.png">
+
+<img width="278" alt="apitotmatchendpoints" src="https://user-images.githubusercontent.com/32243530/184497048-8504fc11-3c8f-459c-b395-41f76f201700.png">
+
 
 ## Roadmap
 
