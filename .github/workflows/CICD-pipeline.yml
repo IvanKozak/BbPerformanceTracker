@@ -2,6 +2,8 @@ name: build and test
 
 on:
   push:
+    paths-ignore:
+    - '.github/workflows/Sql-deployment.yml'
   pull_request:
     branches: [ main ]
     paths:
