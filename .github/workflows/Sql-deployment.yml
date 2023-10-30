@@ -9,14 +9,12 @@ jobs:
     name: Deploy SqlDb to Azure
     runs-on: ubuntu-22.04
     steps:
-      - name: Download dacpac
-        uses: actions/download-artifact@v3
-        with:
-          name: SQLDB
-
-      - name: Deploy TimCoData
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+      - name: Deploy 
         uses: Azure/sql-action@v2.2
         with:
           connection-string: Server=tcp:bbtrackerdb.database.windows.net,1433;Initial Catalog=BbData;Persist Security Info=False;User ID=kozanadmin;Password=${{secrets.AZURE_SQL_PASSWORD}};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-          path: ${{ github.workspace }}/BbPerformanceTrackerDb.dacpac
+          path: ./BbPerformanceTrackerDb/BbPerformanceTrackerDb.csproj
           action: Publish
+          build-arguments: -c Release
