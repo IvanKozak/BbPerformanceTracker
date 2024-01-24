@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Text;
 using ClientLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,24 @@ public class ShootingDrillService : IShootingDrillService
 
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
     }
+
+    public async Task AddAsync(ShootingDrill drill)
+    {
+        await PrepareAuthenticatedClient();
+
+        var jsonRequest = JsonConvert.SerializeObject(drill);
+        var jsoncontent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_BaseAddress}/shootingdrills", jsoncontent);
+
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
 
     private async Task PrepareAuthenticatedClient()
     {

@@ -1,11 +1,12 @@
 ﻿@page "/sdform"
 @attribute [Authorize]
 @using System.ComponentModel.DataAnnotations
+@using ClientLibrary.Services
+@using ClientLibrary.Models
 @implements IDisposable
-@inject AuthenticationStateProvider authProvider;
 @inject ILogger<ShootingDrillForm> logger;
-@inject IShootingDrillRepository drillRepo;
-@inject IUserRepository userRepo;
+@inject IShootingDrillService drillService;
+@inject IUserService userService;
 
 
 <h3>ShootingDrillForm</h3>
@@ -87,7 +88,7 @@
         editContext.OnValidationRequested += HandleValidationRequested;
         messageStore = new(editContext);
 
-        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
+        loggedInUser = await userService.GetAsync();
     }
 
     private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
@@ -118,14 +119,14 @@
         shootingDrill = new(0,
             loggedInUser,
             drillValidationModel.Accomplished,
-            new ShootingRecord(drillValidationModel.ThreePointerMakes, drillValidationModel.ThreePointerAttempts),
-            new ShootingRecord(drillValidationModel.MidrangeMakes, drillValidationModel.MidrangeAttempts),
-            new ShootingRecord(drillValidationModel.PostupMakes, drillValidationModel.PostupAttempts)
+            new ClientLibrary.Models.ShootingRecord(drillValidationModel.ThreePointerMakes, drillValidationModel.ThreePointerAttempts),
+            new ClientLibrary.Models.ShootingRecord(drillValidationModel.MidrangeMakes, drillValidationModel.MidrangeAttempts),
+            new ClientLibrary.Models.ShootingRecord(drillValidationModel.PostupMakes, drillValidationModel.PostupAttempts)
         );
 
         try
         {
-            await drillRepo.Insert(shootingDrill);
+            await drillService.AddAsync(shootingDrill);
             logger.LogInformation("Shooting Record successfuly saved into database.");
             drillValidationModel = new();
         }
