@@ -7,6 +7,7 @@ public static class UserEndpoints
 {
     public static void ConfigureUserEndpoints(this WebApplication app)
     {
+        app.MapGet("/user", GetUser).RequireAuthorization("access_user_records");
         app.MapGet("/users", GetUsers);
         app.MapGet("users/{id}", GetUserById);
         app.MapPost("/users", InsertUser);
@@ -18,7 +19,19 @@ public static class UserEndpoints
     {
         services.AddScoped<IUserRepository, UserRepository>();
     }
+    private static async Task<IResult> GetUser(IUserRepository userRepo, IHttpContextAccessor contextAccessor)
+    {
+        try
+        {
+            var B2CIdentifier = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+            return Results.Ok(await userRepo.GetFromAuthentication(B2CIdentifier));
+        }
+        catch (Exception ex)
+        {
 
+            return Results.Problem(ex.Message);
+        }
+    }
     private static async Task<IResult> GetUsers(IUserRepository userRepo)
     {
         try

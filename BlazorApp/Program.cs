@@ -31,6 +31,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
 builder.Services.AddScoped<IThreeOnThreeMatchRepository, ThreeOnThreeMatchRepository>();
 builder.Services.AddShootingDrillService(builder.Configuration);
+builder.Services.AddUserService(builder.Configuration);
 
 var app = builder.Build();
 
