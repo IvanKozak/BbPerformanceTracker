@@ -27,6 +27,24 @@ public class ShootingDrillRepository : IShootingDrillRepository
         return output;
     }
 
+    public async Task<List<ShootingDrill>> GetAllByB2CId(string b2cId)
+    {
+        var drillJoinUserDtos = await _db.LoadData<ShootingDrillJoinUserDto, object>("spShootingDrill_GetAllByB2CId", new { B2CIdentifier = b2cId });
+        if (drillJoinUserDtos is null)
+        {
+            return new List<ShootingDrill>();
+        }
+        var output = new List<ShootingDrill>();
+
+        foreach (var drillJoinUserDto in drillJoinUserDtos)
+        {
+            var drill = drillJoinUserDto.Adapt();
+            output.Add(drill);
+        }
+
+        return output;
+    }
+
     public async Task<List<ShootingDrill>> GetAllFromUser(User user)
     {
         var drillDtos = await _db.LoadData<ShootingDrillDto, object>("spShootingDrill_GetAllByUserId", new { UserId = user.Id });

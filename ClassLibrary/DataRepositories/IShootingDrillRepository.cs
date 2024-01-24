@@ -10,4 +10,5 @@ public interface IShootingDrillRepository
     Task Insert(ShootingDrill shootingDrill);
     Task Update(ShootingDrill shootingDrill);
     Task Delete(int id);
+    Task<List<ShootingDrill>> GetAllByB2CId(string b2cId);
 }
