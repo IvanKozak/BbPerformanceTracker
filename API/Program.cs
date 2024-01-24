@@ -1,5 +1,8 @@
-﻿using API.Endpoints;
+﻿using System.IdentityModel.Tokens.Jwt;
+using API.Endpoints;
 using ClassLibrary.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+// This is required to be instantiated before the OpenIdConnectOptions starts getting configured.
+// By default, the claims mapping will map claim names in the old format to accommodate older SAML applications.
+// For instance, 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' instead of 'roles' claim.
+// This flag ensures that the ClaimsIdentity claims collection will be built from the claims in the token
+JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
+// Adds Microsoft Identity platform (AAD v2.0) support to protect this Api
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(options =>
+        {
+            builder.Configuration.Bind("AzureAdB2C", options);
+        },
+options => { builder.Configuration.Bind("AzureAdB2C", options); });
+
+builder.Services.AddAuthorizationBuilder()
+  .AddPolicy("access_user_records", policy =>
+        policy.RequireClaim("scp", "access_as_user"));
+
 builder.Services.AddUserServices();
 builder.Services.AddShootingDrillServices();
 builder.Services.AddTOTMatchServices();
@@ -22,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.ConfigureUserEndpoints();
 app.ConfigureShootingDrillEndpoints();

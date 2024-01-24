@@ -9,10 +9,10 @@ public static class ShootingDrillEndpoints
     public static void ConfigureShootingDrillEndpoints(this WebApplication app)
     {
         app.MapGet("/users/{id}/shootingdrills", GetShootingDrillsByUserId);
-        app.MapGet("/shootingdrills", GetAllShootingDrills);
-        app.MapPost("/shootingdrills", InsertShootingDrill);
-        app.MapPut("/shootingdrills", UpdateShootingDrill);
-        app.MapDelete("/shootingdrills/{id}", DeleteShootingDrill);
+        app.MapGet("/shootingdrills", GetAllShootingDrills).RequireAuthorization("access_user_records");
+        app.MapPost("/shootingdrills", InsertShootingDrill).RequireAuthorization("access_user_records");
+        app.MapPut("/shootingdrills", UpdateShootingDrill).RequireAuthorization("access_user_records");
+        app.MapDelete("/shootingdrills/{id}", DeleteShootingDrill).RequireAuthorization("access_user_records");
     }
 
     public static void AddShootingDrillServices(this IServiceCollection services)
@@ -33,11 +33,12 @@ public static class ShootingDrillEndpoints
         }
     }
 
-    private static async Task<IResult> GetAllShootingDrills(IShootingDrillRepository shootingDrillRepo)
+    private static async Task<IResult> GetAllShootingDrills(IShootingDrillRepository shootingDrillRepo, IHttpContextAccessor contextAccessor)
     {
         try
         {
-            return Results.Ok(await shootingDrillRepo.GetAll());
+            var b2cId = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+            return Results.Ok(await shootingDrillRepo.GetAllByB2CId(b2cId));
         }
         catch (Exception ex)
         {
@@ -45,10 +46,11 @@ public static class ShootingDrillEndpoints
         }
     }
 
-    private static async Task<IResult> InsertShootingDrill(IShootingDrillRepository shootingDrillRepo, ShootingDrill drill)
+    private static async Task<IResult> InsertShootingDrill(IShootingDrillRepository shootingDrillRepo, ShootingDrill drill, IHttpContextAccessor contextAccessor)
     {
         try
         {
+            drill.User.B2CIdentifier = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
             await shootingDrillRepo.Insert(drill);
             return Results.Ok();
         }
