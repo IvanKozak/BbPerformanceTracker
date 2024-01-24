@@ -1,5 +1,6 @@
 ﻿using ClassLibrary.DataAccess;
 using ClassLibrary.DataRepositories;
+using ClientLibrary.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Identity.Web;
@@ -13,7 +14,9 @@ builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
 builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"))
+    .EnableTokenAcquisitionToCallDownstreamApi(new string[] { builder.Configuration.GetValue<string>("UserRecords:Scope") })
+    .AddInMemoryTokenCaches();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -27,6 +30,7 @@ builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
 builder.Services.AddScoped<IThreeOnThreeMatchRepository, ThreeOnThreeMatchRepository>();
+builder.Services.AddShootingDrillService(builder.Configuration);
 
 var app = builder.Build();
 

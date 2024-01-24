@@ -2,10 +2,12 @@
 
 @using ClassLibrary.DataRepositories
 @using ClassLibrary.Models
+@using ClientLibrary.Services
 @inject IUserRepository userRepo;
 @inject IShootingDrillRepository drillRepo;
 @inject IThreeOnThreeMatchRepository matchRepo;
 @inject NavigationManager navManager;
+@inject IShootingDrillService drillService;
 
 <div class="row">
     <div class="col-md-auto">
@@ -37,7 +39,7 @@
     [Parameter]
     public string Id { get; set; } = string.Empty;
     private User? user;
-    private List<ShootingDrill> shootingDrills = new();
+    private List<ClientLibrary.Models.ShootingDrill> shootingDrills = new();
     private List<ThreeOnThreeMatch> matches = new();
 
     protected override async Task OnInitializedAsync()
@@ -47,7 +49,7 @@
         {
             navManager.NavigateTo("/");
         }
-        shootingDrills = await drillRepo.GetAllFromUser(user!);
+        shootingDrills = await drillService.GetAsync();
         matches = await matchRepo.GetAllFromUser(user!);
     }
 }
