@@ -83,6 +83,7 @@
     <Build Include="dbo\StoredProcedures\spTOTMatch_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spTOTMatch_Update.sql" />
     <Build Include="dbo\StoredProcedures\spTOTMatch_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spShootingDrill_GetAllByB2CId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BbPerformanceTrackerDb.refactorlog" />
