@@ -8,11 +8,11 @@ public static class ShootingDrillEndpoints
 
     public static void ConfigureShootingDrillEndpoints(this WebApplication app)
     {
-        app.MapGet("/users/{id}/shootingdrills", GetShootingDrillsByUserId);
-        app.MapGet("/shootingdrills", GetAllShootingDrills).RequireAuthorization("access_user_records");
-        app.MapPost("/shootingdrills", InsertShootingDrill).RequireAuthorization("access_user_records");
-        app.MapPut("/shootingdrills", UpdateShootingDrill).RequireAuthorization("access_user_records");
-        app.MapDelete("/shootingdrills/{id}", DeleteShootingDrill).RequireAuthorization("access_user_records");
+        app.MapGet("/users/{id}/shootingdrills", GetShootingDrillsByUserId).RequireAuthorization("Admin");
+        app.MapGet("/shootingdrills", GetAllShootingDrills).RequireAuthorization("User");
+        app.MapPost("/shootingdrills", InsertShootingDrill).RequireAuthorization("User");
+        app.MapPut("/shootingdrills", UpdateShootingDrill).RequireAuthorization("User");
+        app.MapDelete("/shootingdrills/{id}", DeleteShootingDrill).RequireAuthorization("User");
     }
 
     public static void AddShootingDrillServices(this IServiceCollection services)

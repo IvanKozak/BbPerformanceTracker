@@ -26,8 +26,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 options => { builder.Configuration.Bind("AzureAdB2C", options); });
 
 builder.Services.AddAuthorizationBuilder()
-  .AddPolicy("access_user_records", policy =>
-        policy.RequireClaim("scp", "access_as_user"));
+  .AddPolicy("User", policy =>
+        policy.RequireClaim("scp", "access_as_user"))
+  .AddPolicy("Admin", policy =>
+  policy
+  .RequireClaim("scp", "access_as_user")
+  .RequireClaim("jobTitle", "Admin"));
 
 builder.Services.AddUserServices();
 builder.Services.AddShootingDrillServices();

@@ -7,12 +7,12 @@ public static class UserEndpoints
 {
     public static void ConfigureUserEndpoints(this WebApplication app)
     {
-        app.MapGet("/user", GetUser).RequireAuthorization("access_user_records");
-        app.MapGet("/users", GetUsers);
-        app.MapGet("users/{id}", GetUserById);
-        app.MapPost("/users", InsertUser);
-        app.MapPut("/users", UpdateUser);
-        app.MapDelete("users/{id}", DeleteUser);
+        app.MapGet("/users/current", GetUser).RequireAuthorization("User");
+        app.MapGet("/users", GetUsers).RequireAuthorization("Admin");
+        app.MapGet("users/{id}", GetUserById).RequireAuthorization("Admin");
+        app.MapPost("/users", InsertUser).RequireAuthorization("User");
+        app.MapPut("/users", UpdateUser).RequireAuthorization("User");
+        app.MapDelete("users/{id}", DeleteUser).RequireAuthorization("Admin");
     }
 
     public static void AddUserServices(this IServiceCollection services)
