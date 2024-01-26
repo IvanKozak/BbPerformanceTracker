@@ -10,4 +10,5 @@ public interface IThreeOnThreeMatchRepository
     Task Insert(ThreeOnThreeMatch match);
     Task Update(ThreeOnThreeMatch match);
     Task Delete(int id);
+    Task<List<ThreeOnThreeMatch>> GetAllByB2CId(string b2cId);
 }

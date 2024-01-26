@@ -1,4 +1,4 @@
-﻿using ClassLibrary.Models;
+﻿using ClientLibrary.Models;
 
 namespace BlazorApp.Helpers;
 

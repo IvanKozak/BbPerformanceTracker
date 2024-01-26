@@ -45,12 +45,18 @@ public static class UserEndpoints
         }
     }
 
-    private static async Task<IResult> InsertUser(IUserRepository userRepo, User user)
+    private static async Task<IResult> InsertUser(IUserRepository userRepo, User user, IHttpContextAccessor contextAccessor)
     {
         try
         {
-            await userRepo.Insert(user);
-            return Results.Ok();
+            var B2CIdentifier = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
+            if (user.B2CIdentifier == B2CIdentifier)
+            {
+                await userRepo.Insert(user);
+                return Results.Ok();
+            }
+            return Results.Forbid();
         }
         catch (Exception ex)
         {
@@ -86,12 +92,18 @@ public static class UserEndpoints
         }
     }
 
-    private static async Task<IResult> UpdateUser(IUserRepository userRepo, User user)
+    private static async Task<IResult> UpdateUser(IUserRepository userRepo, User user, IHttpContextAccessor contextAccessor)
     {
         try
         {
-            await userRepo.Update(user);
-            return Results.Ok();
+            var B2CIdentifier = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
+            if (user.B2CIdentifier == B2CIdentifier)
+            {
+                await userRepo.Update(user);
+                return Results.Ok();
+            }
+            return Results.Forbid();
         }
         catch (Exception ex)
         {

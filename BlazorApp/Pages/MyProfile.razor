@@ -1,10 +1,10 @@
 ﻿@page "/MyProfile"
-
 @attribute [Authorize]
-@inject AuthenticationStateProvider authProvider;
-@inject IUserRepository userRepo;
-@using ClassLibrary.Models
 
+@using ClientLibrary.Models
+@using ClientLibrary.Services
+@inject AuthenticationStateProvider authProvider;
+@inject IUserService userService;
 <h3>MyProfile</h3>
 
 @if (loggedInUser is not null)
@@ -18,6 +18,6 @@
 
     protected async override Task OnInitializedAsync()
     {
-        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
+        loggedInUser = await userService.GetAsync();
     }
 }

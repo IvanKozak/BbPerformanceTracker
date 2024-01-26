@@ -1,7 +1,8 @@
 ﻿@page "/"
-@inject IUserRepository userRepo
+@using ClientLibrary.Models
+@using ClientLibrary.Services
 @inject AuthenticationStateProvider authProvider
-@using ClassLibrary.Models
+@inject IUserService userService;
 
 
 <PageTitle>Index</PageTitle>
@@ -29,7 +30,7 @@ Welcome to your new app.
 
         if(string.IsNullOrWhiteSpace(objectId) == false)
         {
-            loggedInUser = await userRepo.GetFromAuthentication(objectId) ?? new();
+            loggedInUser = await userService.GetAsync() ?? new();
 
             var name = authState.User.Claims.FirstOrDefault(c => c.Type.Equals("name"))?.Value;
             var email = authState.User.Claims.FirstOrDefault(c => c.Type.Contains("email"))?.Value;
@@ -52,10 +53,10 @@ Welcome to your new app.
             {
                 if(loggedInUser.Id == 0)
                 {
-                    await userRepo.Insert(loggedInUser);
+                    await userService.AddAsync(loggedInUser);
                     return;
                 }
-                await userRepo.Update(loggedInUser);
+                await userService.UpdateAsync(loggedInUser);
             }
         }
 

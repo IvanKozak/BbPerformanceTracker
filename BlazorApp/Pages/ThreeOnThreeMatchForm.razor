@@ -4,9 +4,10 @@
 @implements IDisposable
 @inject AuthenticationStateProvider authProvider;
 @inject ILogger<ThreeOnThreeMatchForm> logger;
-@inject IThreeOnThreeMatchRepository matchRepo;
-@inject IUserRepository userRepo;
-@using ClassLibrary.Models
+@inject IThreeOnThreeMatchService matchService;
+@inject IUserService userService;
+@using ClientLibrary.Models
+@using ClientLibrary.Services
 
 
 <h3>ThreeOnThreeMatchForm</h3>
@@ -123,7 +124,7 @@
         editContext.OnValidationRequested += HandleValidationRequested;
         messageStore = new(editContext);
 
-        loggedInUser = await authProvider.GetUserFromAuth(userRepo);
+        loggedInUser = await userService.GetAsync();
     }
 
     private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
@@ -174,7 +175,7 @@
 
         try
         {
-            await matchRepo.Insert(match);
+            await matchService.AddAsync(match);
             logger.LogInformation("Three on three match successfuly saved into database.");
             matchValidationModel = new();
         }

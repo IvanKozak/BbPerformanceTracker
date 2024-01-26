@@ -32,11 +32,12 @@ public static class TOTMatchEndpoints
         }
     }
 
-    private static async Task<IResult> GetAllTOTMatches(IThreeOnThreeMatchRepository matchRepo)
+    private static async Task<IResult> GetAllTOTMatches(IThreeOnThreeMatchRepository matchRepo, IHttpContextAccessor contextAccessor)
     {
         try
         {
-            return Results.Ok(await matchRepo.GetAll());
+            var b2cId = contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+            return Results.Ok(await matchRepo.GetAllByB2CId(b2cId));
         }
         catch (Exception ex)
         {

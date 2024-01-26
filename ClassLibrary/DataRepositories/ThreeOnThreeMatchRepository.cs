@@ -25,6 +25,18 @@ public class ThreeOnThreeMatchRepository : IThreeOnThreeMatchRepository
         return matches;
     }
 
+    public async Task<List<ThreeOnThreeMatch>> GetAllByB2CId(string b2cId)
+    {
+        var dtos = await _db.LoadData<TOTMatchJoinUserDto, object>("spTOTMatch_GetAllByB2CId", new { B2CIdentifier = b2cId });
+
+        var matches = new List<ThreeOnThreeMatch>();
+        foreach (var dto in dtos)
+        {
+            matches.Add(dto.Adapt());
+        }
+        return matches;
+    }
+
     public async Task<List<ThreeOnThreeMatch>> GetAllFromUser(User user)
     {
         var dtos = await _db.LoadData<TOTMatchDto, object>("spTOTMatch_GetAllByUserId", new { UserId = user.Id });

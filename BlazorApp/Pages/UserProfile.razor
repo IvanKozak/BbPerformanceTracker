@@ -1,11 +1,9 @@
 ﻿@page "/profile/{id}"
 
-@using ClassLibrary.DataRepositories
-@using ClassLibrary.Models
+@using ClientLibrary.Models
 @using ClientLibrary.Services
-@inject IUserRepository userRepo;
-@inject IShootingDrillRepository drillRepo;
-@inject IThreeOnThreeMatchRepository matchRepo;
+@inject IUserService userService;
+@inject IThreeOnThreeMatchService matchService;
 @inject NavigationManager navManager;
 @inject IShootingDrillService drillService;
 
@@ -39,17 +37,17 @@
     [Parameter]
     public string Id { get; set; } = string.Empty;
     private User? user;
-    private List<ClientLibrary.Models.ShootingDrill> shootingDrills = new();
+    private List<ShootingDrill> shootingDrills = new();
     private List<ThreeOnThreeMatch> matches = new();
 
     protected override async Task OnInitializedAsync()
     {
-        user = await userRepo.Get(Int32.Parse(Id));
+        user = await userService.GetByIdAsync(Int32.Parse(Id));
         if (user is null)
         {
             navManager.NavigateTo("/");
         }
         shootingDrills = await drillService.GetAsync();
-        matches = await matchRepo.GetAllFromUser(user!);
+        matches = await matchService.GetAsync();
     }
 }

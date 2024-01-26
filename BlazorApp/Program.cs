@@ -1,6 +1,4 @@
-﻿using ClassLibrary.DataAccess;
-using ClassLibrary.DataRepositories;
-using ClientLibrary.Services;
+﻿using ClientLibrary.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Identity.Web;
@@ -26,12 +24,10 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IShootingDrillRepository, ShootingDrillRepository>();
-builder.Services.AddScoped<IThreeOnThreeMatchRepository, ThreeOnThreeMatchRepository>();
-builder.Services.AddShootingDrillService(builder.Configuration);
+
 builder.Services.AddUserService(builder.Configuration);
+builder.Services.AddShootingDrillService(builder.Configuration);
+builder.Services.AddThreeOnThreeMatchService(builder.Configuration);
 
 var app = builder.Build();
 

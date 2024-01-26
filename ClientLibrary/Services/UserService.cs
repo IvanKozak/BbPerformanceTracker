@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using ClientLibrary.Helpers;
 using ClientLibrary.Models;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,56 @@ public class UserService : IUserService
             User user = JsonConvert.DeserializeObject<User>(content);
 
             return user;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
+    public async Task<User> GetByIdAsync(int id)
+    {
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
+
+        var response = await _httpClient.GetAsync($"{_BaseAddress}/users/{id}");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            User user = JsonConvert.DeserializeObject<User>(content);
+
+            return user;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
+    public async Task AddAsync(User user)
+    {
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
+
+        var jsonRequest = JsonConvert.SerializeObject(user);
+        var jsoncontent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_BaseAddress}/users", jsoncontent);
+
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
+
+        var jsonRequest = JsonConvert.SerializeObject(user);
+        var jsoncontent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync($"{_BaseAddress}/users", jsoncontent);
+
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return;
         }
 
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
