@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Net.Http.Headers;
+﻿using System.Net;
+using ClientLibrary.Helpers;
 using ClientLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -37,9 +36,9 @@ public class UserService : IUserService
 
     public async Task<User> GetAsync()
     {
-        await PrepareAuthenticatedClient();
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
 
-        var response = await _httpClient.GetAsync($"{_BaseAddress}/user");
+        var response = await _httpClient.GetAsync($"{_BaseAddress}/users/current");
         if (response.StatusCode == HttpStatusCode.OK)
         {
             var content = await response.Content.ReadAsStringAsync();
@@ -49,13 +48,5 @@ public class UserService : IUserService
         }
 
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
-    }
-
-    private async Task PrepareAuthenticatedClient()
-    {
-        var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { _Scope });
-        Debug.WriteLine($"access token-{accessToken}");
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 }

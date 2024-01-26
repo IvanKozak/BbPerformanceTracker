@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Net.Http.Headers;
+﻿using System.Net;
 using System.Text;
+using ClientLibrary.Helpers;
 using ClientLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +37,7 @@ public class ShootingDrillService : IShootingDrillService
 
     public async Task<List<ShootingDrill>> GetAsync()
     {
-        await PrepareAuthenticatedClient();
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
 
         var response = await _httpClient.GetAsync($"{_BaseAddress}/shootingdrills");
         if (response.StatusCode == HttpStatusCode.OK)
@@ -54,7 +53,7 @@ public class ShootingDrillService : IShootingDrillService
 
     public async Task AddAsync(ShootingDrill drill)
     {
-        await PrepareAuthenticatedClient();
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
 
         var jsonRequest = JsonConvert.SerializeObject(drill);
         var jsoncontent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
@@ -67,14 +66,5 @@ public class ShootingDrillService : IShootingDrillService
         }
 
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
-    }
-
-
-    private async Task PrepareAuthenticatedClient()
-    {
-        var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { _Scope });
-        Debug.WriteLine($"access token-{accessToken}");
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 }
