@@ -1,6 +1,6 @@
-﻿using ClassLibrary.Models;
+﻿using APILibrary.Models;
 
-namespace ClassLibrary.DataRepositories;
+namespace APILibrary.DataRepositories;
 
 public interface IUserRepository
 {

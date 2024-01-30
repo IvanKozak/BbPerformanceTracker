@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary.Models;
+﻿namespace APILibrary.Models;
 
 public record class ShootingDrill(
     int Id,

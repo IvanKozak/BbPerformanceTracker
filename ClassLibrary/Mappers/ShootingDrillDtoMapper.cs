@@ -1,6 +1,6 @@
-﻿using ClassLibrary.Models;
+﻿using APILibrary.Models;
 
-namespace ClassLibrary.Mappers;
+namespace APILibrary.Mappers;
 public static class ShootingDrillDtoMapper
 {
     public static ShootingDrill Adapt(this ShootingDrillDto shootingDrillDto, User user)

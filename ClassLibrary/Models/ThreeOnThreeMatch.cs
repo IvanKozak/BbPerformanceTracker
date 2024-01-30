@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary.Models;
+﻿namespace APILibrary.Models;
 
 public record class ThreeOnThreeMatch
 {
@@ -11,7 +11,7 @@ public record class ThreeOnThreeMatch
     int rebounds,
     int assists)
     {
-        OwnPoints = onePointShots.Makes + (twoPointShots.Makes * 2) + freeThrows.Makes;
+        OwnPoints = onePointShots.Makes + twoPointShots.Makes * 2 + freeThrows.Makes;
         var teammatesScored = gameScore.OwnTeamScore - OwnPoints;
         if (assists > teammatesScored)
         {

@@ -1,5 +1,5 @@
-﻿using ClassLibrary.DataRepositories;
-using ClassLibrary.Models;
+﻿using APILibrary.DataRepositories;
+using APILibrary.Models;
 
 namespace API.Endpoints;
 

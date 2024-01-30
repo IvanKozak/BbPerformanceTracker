@@ -1,7 +1,7 @@
-﻿using ClassLibrary.DataAccess;
-using ClassLibrary.Models;
+﻿using APILibrary.DataAccess;
+using APILibrary.Models;
 
-namespace ClassLibrary.DataRepositories;
+namespace APILibrary.DataRepositories;
 
 public class UserRepository : IUserRepository
 {
@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
 
     public Task Update(User user)
     {
-        return _db.SaveData<User>("spUser_Update", user);
+        return _db.SaveData("spUser_Update", user);
     }
 
     public Task Delete(int id)

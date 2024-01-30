@@ -1,8 +1,8 @@
-﻿using ClassLibrary.DataAccess;
-using ClassLibrary.Mappers;
-using ClassLibrary.Models;
+﻿using APILibrary.DataAccess;
+using APILibrary.Mappers;
+using APILibrary.Models;
 
-namespace ClassLibrary.DataRepositories;
+namespace APILibrary.DataRepositories;
 
 public class ShootingDrillRepository : IShootingDrillRepository
 {
@@ -71,12 +71,12 @@ public class ShootingDrillRepository : IShootingDrillRepository
 
     public Task Insert(ShootingDrill shootingDrill)
     {
-        return _db.SaveData<ShootingDrillDto>("spShootingDrill_Insert", shootingDrill.AdaptToDto());
+        return _db.SaveData("spShootingDrill_Insert", shootingDrill.AdaptToDto());
     }
 
     public Task Update(ShootingDrill shootingDrill)
     {
-        return _db.SaveData<ShootingDrillDto>("spShootingDrill_Update", shootingDrill.AdaptToDto());
+        return _db.SaveData("spShootingDrill_Update", shootingDrill.AdaptToDto());
     }
 
     public Task Delete(int id)

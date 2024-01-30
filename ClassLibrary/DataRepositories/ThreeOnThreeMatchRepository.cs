@@ -1,8 +1,8 @@
-﻿using ClassLibrary.DataAccess;
-using ClassLibrary.Mappers;
-using ClassLibrary.Models;
+﻿using APILibrary.DataAccess;
+using APILibrary.Mappers;
+using APILibrary.Models;
 
-namespace ClassLibrary.DataRepositories;
+namespace APILibrary.DataRepositories;
 
 public class ThreeOnThreeMatchRepository : IThreeOnThreeMatchRepository
 {
@@ -57,12 +57,12 @@ public class ThreeOnThreeMatchRepository : IThreeOnThreeMatchRepository
 
     public Task Insert(ThreeOnThreeMatch match)
     {
-        return _db.SaveData<TOTMatchDto>("spTOTMatch_Insert", match.AdaptToDto());
+        return _db.SaveData("spTOTMatch_Insert", match.AdaptToDto());
     }
 
     public Task Update(ThreeOnThreeMatch match)
     {
-        return _db.SaveData<TOTMatchDto>("spTOTMatch_Update", match.AdaptToDto());
+        return _db.SaveData("spTOTMatch_Update", match.AdaptToDto());
     }
 
     public Task Delete(int id)

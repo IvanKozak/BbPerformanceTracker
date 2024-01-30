@@ -1,5 +1,5 @@
-﻿using ClassLibrary.Mappers;
-using ClassLibrary.Models;
+﻿using APILibrary.Mappers;
+using APILibrary.Models;
 
 namespace BbPerformanceTracker.Tests.ClassLibraryTests.Mappers;
 public class ShootingDrillJoinUserDtoMapperTests

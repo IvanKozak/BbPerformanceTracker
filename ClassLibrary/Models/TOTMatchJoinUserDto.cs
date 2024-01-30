@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary.Models;
+﻿namespace APILibrary.Models;
 public record class TOTMatchJoinUserDto(
     int Id,
     int UserId,

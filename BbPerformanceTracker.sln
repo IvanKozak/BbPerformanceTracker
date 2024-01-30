@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BbPerformanceTrackerDb", "BbPerformanceTrackerDb\BbPerformanceTrackerDb.sqlproj", "{AD058BAC-DA16-48E4-AC61-6803BEBD224B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{711F0D1B-17E6-441D-9573-9E3534FC87CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APILibrary", "ClassLibrary\APILibrary.csproj", "{711F0D1B-17E6-441D-9573-9E3534FC87CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{6683BD78-1A9A-4777-A161-F62FE30580AE}"
 EndProject

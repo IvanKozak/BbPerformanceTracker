@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 
-namespace ClassLibrary.DataAccess;
+namespace APILibrary.DataAccess;
 
 public class SqlDataAccess : ISqlDataAccess
 {

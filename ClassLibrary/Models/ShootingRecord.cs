@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary.Models;
+﻿namespace APILibrary.Models;
 public record ShootingRecord
 {
     public ShootingRecord(int makes, int attempts)

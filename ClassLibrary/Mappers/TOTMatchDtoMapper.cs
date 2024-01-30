@@ -1,6 +1,6 @@
-﻿using ClassLibrary.Models;
+﻿using APILibrary.Models;
 
-namespace ClassLibrary.Mappers;
+namespace APILibrary.Mappers;
 public static class TOTMatchDtoMapper
 {
     public static ThreeOnThreeMatch Adapt(this TOTMatchDto dto, User user)
