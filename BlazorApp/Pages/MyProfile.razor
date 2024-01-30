@@ -5,19 +5,28 @@
 @using ClientLibrary.Services
 @inject AuthenticationStateProvider authProvider;
 @inject IUserService userService;
+@inject IThreeOnThreeMatchService matchService;
+@inject IShootingDrillService drillService;
+
 <h3>MyProfile</h3>
 
 @if (loggedInUser is not null)
 {
-    <UserProfile Id="@loggedInUser.Id.ToString()"></UserProfile>
+    <UserProfile ShootingDrills="shootingDrills" ToTMatches="matches"></UserProfile>
 }
 
 
 @code {
     private User? loggedInUser;
+    private List<ShootingDrill> shootingDrills = new();
+    private List<ThreeOnThreeMatch> matches = new();
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         loggedInUser = await userService.GetAsync();
+        
+        shootingDrills = await drillService.GetAsync();
+        matches = await matchService.GetAsync();
     }
+
 }

@@ -51,6 +51,22 @@ public class ShootingDrillService : IShootingDrillService
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
     }
 
+    public async Task<List<ShootingDrill>> GetByUserIdAsync(int id)
+    {
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
+
+        var response = await _httpClient.GetAsync($"{_BaseAddress}/users/{id}/shootingdrills");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            List<ShootingDrill> shootingDrills = JsonConvert.DeserializeObject<IEnumerable<ShootingDrill>>(content).ToList();
+
+            return shootingDrills;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
     public async Task AddAsync(ShootingDrill drill)
     {
         await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);

@@ -1,0 +1,34 @@
+﻿@page "/profile/{id}"
+@attribute [Authorize("admin")]
+
+@using ClientLibrary.Models
+@using ClientLibrary.Services
+@inject IUserService userService;
+@inject IThreeOnThreeMatchService matchService;
+@inject NavigationManager navManager;
+@inject IShootingDrillService drillService;
+
+<h3>OtherUserProfile</h3>
+
+<UserProfile ShootingDrills="shootingDrills" ToTMatches="matches"></UserProfile>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
+    private int userId;
+    private User? user;
+    private List<ShootingDrill> shootingDrills = new();
+    private List<ThreeOnThreeMatch> matches = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        userId = Int32.Parse(Id);
+        user = await userService.GetByIdAsync(userId);
+        if (user is null)
+        {
+            navManager.NavigateTo("/");
+        }
+        shootingDrills = await drillService.GetByUserIdAsync(userId);
+        matches = await matchService.GetByUserIdAsync(userId);
+    }
+}

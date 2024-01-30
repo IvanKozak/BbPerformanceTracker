@@ -48,6 +48,22 @@ public class ThreeOnThreeMatchService : IThreeOnThreeMatchService
         throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
     }
 
+    public async Task<List<ThreeOnThreeMatch>> GetByUserIdAsync(int id)
+    {
+        await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);
+
+        var response = await _httpClient.GetAsync($"{_BaseAddress}/users/{id}/totmatches");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            List<ThreeOnThreeMatch> matches = JsonConvert.DeserializeObject<IEnumerable<ThreeOnThreeMatch>>(content).ToList();
+
+            return matches;
+        }
+
+        throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
+    }
+
     public async Task AddAsync(ThreeOnThreeMatch match)
     {
         await _httpClient.PrepareAuthenticatedClient(_tokenAcquisition, _Scope);

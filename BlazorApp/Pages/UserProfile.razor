@@ -1,18 +1,11 @@
-﻿@page "/profile/{id}"
-
-@using ClientLibrary.Models
-@using ClientLibrary.Services
-@inject IUserService userService;
-@inject IThreeOnThreeMatchService matchService;
-@inject NavigationManager navManager;
-@inject IShootingDrillService drillService;
+﻿@using ClientLibrary.Models
 
 <div class="row">
     <div class="col-md-auto">
-        <ShootingDrillSummary Drills="shootingDrills" />
+        <ShootingDrillSummary Drills="ShootingDrills" />
     </div>
     <div class="col-md-auto">
-        <ThreeOnThreeMatchesSummary Matches="matches" />
+        <ThreeOnThreeMatchesSummary Matches="ToTMatches" />
     </div>
 </div>
 
@@ -20,13 +13,13 @@
     <div class="row">
         <div class="col-auto">
             <h2>Shooting drill records</h2>
-            <Virtualize Items="shootingDrills" Context="drill">
+            <Virtualize Items="ShootingDrills" Context="drill">
                 <ShootingDrillTab shootingDrill="drill" />
             </Virtualize>
         </div>
         <div class="col-auto">
             <h2>3x3 records</h2>
-            <Virtualize Items="matches" Context="match">
+            <Virtualize Items="ToTMatches" Context="match">
                 <ThreeOnThreeMatchTab match="match" />
             </Virtualize>
         </div>
@@ -35,19 +28,7 @@
 
 @code {
     [Parameter]
-    public string Id { get; set; } = string.Empty;
-    private User? user;
-    private List<ShootingDrill> shootingDrills = new();
-    private List<ThreeOnThreeMatch> matches = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        user = await userService.GetByIdAsync(Int32.Parse(Id));
-        if (user is null)
-        {
-            navManager.NavigateTo("/");
-        }
-        shootingDrills = await drillService.GetAsync();
-        matches = await matchService.GetAsync();
-    }
+    public List<ShootingDrill> ShootingDrills { get; set; } = new();
+    [Parameter]
+    public List<ThreeOnThreeMatch> ToTMatches { get; set; } = new();
 }
