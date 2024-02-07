@@ -14,13 +14,13 @@
         </div>
         <div class="row">
             <div class="col">
-                @Math.Round(100 * Drills.Average(d => d.ThreePointers.Percentage), 1)%
+                @Math.Round(100 * Drills.Average(d => d.ThreePointers.Accuracy), 1)%
             </div>
             <div class="col">
-                @Math.Round(100 * Drills.Average(d => d.MidrangeShots.Percentage), 1)%
+                @Math.Round(100 * Drills.Average(d => d.MidrangeShots.Accuracy), 1)%
             </div>
             <div class="col">
-                @Math.Round(100 * Drills.Average(d => d.PostUps.Percentage), 1)%
+                @Math.Round(100 * Drills.Average(d => d.PostUps.Accuracy), 1)%
             </div>
         </div>
     </div>

@@ -24,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\BlazorApp\BlazorApp.csproj" />
     <ProjectReference Include="..\ClassLibrary\APILibrary.csproj" />
+    <ProjectReference Include="..\ClientLibrary\ClientLibrary.csproj" />
   </ItemGroup>
 
 </Project>

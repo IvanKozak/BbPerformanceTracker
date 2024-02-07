@@ -1,8 +1,7 @@
 ﻿using APILibrary.Mappers;
 using APILibrary.Models;
-using ClassLibrary.Mappers;
 
-namespace BbPerformanceTracker.Tests.ClassLibraryTests.Mappers;
+namespace BbPerformanceTracker.Tests.APILibraryTests.Mappers;
 public class TOTMatchJoinUserDtoMapperTests
 {
     private readonly User _user;

@@ -12,7 +12,7 @@ public record ShootingRecord
         Makes = makes;
     }
 
-    public double Percentage => (double)Makes / Attempts;
+    public double Accuracy => Attempts == 0 ? 0 : (double)Makes / Attempts;
     public int Makes { get; init; }
     public int Attempts { get; init; }
 }

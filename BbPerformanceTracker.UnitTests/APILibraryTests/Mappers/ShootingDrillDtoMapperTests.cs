@@ -1,14 +1,15 @@
 ﻿using APILibrary.Mappers;
 using APILibrary.Models;
 
-namespace BbPerformanceTracker.Tests.ClassLibraryTests.Mappers;
-public class ShootingDrillJoinUserDtoMapperTests
+namespace BbPerformanceTracker.Tests.APILibraryTests.Mappers;
+public class ShootingDrillDtoMapperTests
 {
-    private readonly ShootingDrillJoinUserDto _drillJoinUserDto;
     private readonly User _user;
     private readonly ShootingDrill _shootingDrill;
+    private readonly ShootingDrillDto _shootingDrillDto;
 
-    public ShootingDrillJoinUserDtoMapperTests()
+
+    public ShootingDrillDtoMapperTests()
     {
         _user = new User()
         {
@@ -25,14 +26,23 @@ public class ShootingDrillJoinUserDtoMapperTests
             new ShootingRecord(3, 4),
             new ShootingRecord(5, 6));
 
-        _drillJoinUserDto = new ShootingDrillJoinUserDto(1, 2, "a", "b", new DateTime(1), 1, 2, 3, 4, 5, 6);
+        _shootingDrillDto = new ShootingDrillDto(1, 2, new DateTime(1), 1, 2, 3, 4, 5, 6);
+
     }
 
     [Fact]
     public void Adapt_ShouldCorrectlyMapTheObject()
     {
-        var result = _drillJoinUserDto.Adapt();
+        var result = _shootingDrillDto.Adapt(_user);
 
         result.Should().BeEquivalentTo(_shootingDrill);
+    }
+
+    [Fact]
+    public void AdaptToDto_ShouldCorrectlyMapTheObject()
+    {
+        var result = _shootingDrill.AdaptToDto();
+
+        result.Should().BeEquivalentTo(_shootingDrillDto);
     }
 }
