@@ -35,6 +35,16 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
+    - name: Publish API
+      run: dotnet publish -o out
+      working-directory: API
+
+    - name: Save API artifact
+      uses: actions/upload-artifact@v3.1.3
+      with:
+        name: api
+        path: API/out
+
     - name: Publish Blazor
       run: dotnet publish -o out
       working-directory: BlazorApp
@@ -80,5 +90,22 @@ jobs:
       with: 
         app-name: basketbtracker
         publish-profile: ${{ secrets.AZURE_BLAZORAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
+        package:  ${{ github.workspace }}
+  
+  deploy-api:
+   name: Deploy API
+   needs: build-and-test
+   runs-on: ubuntu-22.04
+   steps:
+    - name: Download API artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: api
+
+    - name: Deploy blazorapp to Azure
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: bbtrackerapi
+        publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
         package:  ${{ github.workspace }}
      
