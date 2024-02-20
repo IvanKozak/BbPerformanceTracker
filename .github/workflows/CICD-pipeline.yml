@@ -17,7 +17,7 @@ jobs:
   build-and-test:
 
     name: Build and Test
-    runs-on: ubuntu-22.04
+    runs-on: windows-2022
    
     steps:
     - uses: actions/checkout@v4.1.0
@@ -78,7 +78,7 @@ jobs:
   deploy-blazorapp:
    name: Deploy Blazor App
    needs: build-and-test
-   runs-on: ubuntu-22.04
+   runs-on: windows-2022
    steps:
     - name: Download blazorApp artifact
       uses: actions/download-artifact@v3
@@ -95,14 +95,14 @@ jobs:
   deploy-api:
    name: Deploy API
    needs: build-and-test
-   runs-on: ubuntu-22.04
+   runs-on: windows-2022
    steps:
     - name: Download API artifact
       uses: actions/download-artifact@v3
       with:
         name: api
 
-    - name: Deploy blazorapp to Azure
+    - name: Deploy API to Azure
       uses: azure/webapps-deploy@v2
       with: 
         app-name: bbtrackerapi
