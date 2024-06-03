@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\Blaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientLibrary", "ClientLibrary\ClientLibrary.csproj", "{D00E10A6-B14D-462E-912E-233C08D41484}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvxCore", "MvxCore\MvxCore.csproj", "{24B5DA13-2064-40CE-A979-843518202C02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopUI", "DesktopUI\DesktopUI.csproj", "{ADD07E99-3D2A-4514-8EA2-571B99660FEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{D00E10A6-B14D-462E-912E-233C08D41484}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D00E10A6-B14D-462E-912E-233C08D41484}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D00E10A6-B14D-462E-912E-233C08D41484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B5DA13-2064-40CE-A979-843518202C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B5DA13-2064-40CE-A979-843518202C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B5DA13-2064-40CE-A979-843518202C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B5DA13-2064-40CE-A979-843518202C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADD07E99-3D2A-4514-8EA2-571B99660FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADD07E99-3D2A-4514-8EA2-571B99660FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADD07E99-3D2A-4514-8EA2-571B99660FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADD07E99-3D2A-4514-8EA2-571B99660FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
