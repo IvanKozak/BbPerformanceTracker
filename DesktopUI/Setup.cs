@@ -1,4 +1,6 @@
-﻿using DesktopUI.Services;
+﻿using System.IO;
+using DesktopUI.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
@@ -30,4 +32,16 @@ public class Setup : MvxWpfSetup<MvxCore.App>
     {
         return new SerilogLoggerProvider();
     }
-}
+
+    private IConfiguration AddConfiguration()
+    {
+        IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json");
+#if DEBUG
+        configurationBuilder.AddJsonFile("appsettings.Development.json", true, true);
+#else
+            configurationBuilder.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
+#endif
+        return configurationBuilder.Build();
+    }
