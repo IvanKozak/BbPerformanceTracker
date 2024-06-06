@@ -14,7 +14,8 @@ public class Setup : MvxWpfSetup<MvxCore.App>
 {
     protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
     {
-        Mvx.IoCProvider.RegisterSingleton<IAuthenticationService>(new WPFAuthenticationService());
+        Mvx.IoCProvider.RegisterSingleton<IConfiguration>(AddConfiguration());
+        Mvx.IoCProvider.RegisterSingleton<IAuthenticationService>(new WPFAuthenticationService(Mvx.IoCProvider.Resolve<IConfiguration>()));
 
         base.InitializeFirstChance(iocProvider);
     }
@@ -45,3 +46,4 @@ public class Setup : MvxWpfSetup<MvxCore.App>
 #endif
         return configurationBuilder.Build();
     }
+}

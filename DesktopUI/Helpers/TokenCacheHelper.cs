@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Microsoft.Identity.Client;
 
-namespace DesktopUI;
+namespace DesktopUI.Helpers;
 
 static class TokenCacheHelper
 {
