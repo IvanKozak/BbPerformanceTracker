@@ -3,5 +3,6 @@
 namespace MvxCore.Services;
 public interface IAuthenticationService
 {
-    Task<AuthenticationResult> AcquireToken();
+    Task<AuthenticationResult> AcquireTokenInteractive(string[] scopes);
+    Task<AuthenticationResult> AcquireTokenSilent(string[] scopes);
 }

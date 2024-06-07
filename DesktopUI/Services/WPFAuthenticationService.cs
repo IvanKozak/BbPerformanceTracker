@@ -32,10 +32,19 @@ public class WPFAuthenticationService : IAuthenticationService
 
         TokenCacheHelper.Bind(_publicClientApp.UserTokenCache);
     }
-    public async Task<AuthenticationResult> AcquireToken()
+    public Task<AuthenticationResult> AcquireTokenInteractive(string[] scopes)
     {
-        string[] scopes = { _config.GetValue<string>("UserRecords:Scope") };
-        return await _publicClientApp.AcquireTokenInteractive(scopes).WithParentActivityOrWindow(new WindowInteropHelper(App.Current.MainWindow).Handle).ExecuteAsync();
+        return _publicClientApp.AcquireTokenInteractive(scopes)
+            .WithParentActivityOrWindow(new WindowInteropHelper(App.Current.MainWindow).Handle)
+            .ExecuteAsync();
+    }
+
+    public async Task<AuthenticationResult> AcquireTokenSilent(string[] scopes)
+    {
+        var signUpSignInPolicyId = _config.GetValue<string>("AzureAdB2C:SignUpSignInPolicyId");
+        var accounts = await _publicClientApp.GetAccountsAsync(signUpSignInPolicyId);
+        return await _publicClientApp.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
+            .ExecuteAsync();
     }
 
     private static void Log(LogLevel level, string message, bool containsPii)
