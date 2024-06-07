@@ -26,6 +26,7 @@ public class Setup : MvxWpfSetup<MvxCore.App>
         Mvx.IoCProvider.RegisterSingleton<IAuthenticationService>(new WPFAuthenticationService(Mvx.IoCProvider.Resolve<IConfiguration>()));
 
         Mvx.IoCProvider.RegisterType<IUserRepository, UserRepository>();
+        Mvx.IoCProvider.RegisterType<IShootingDrillRepository, ShootingDrillRepository>();
 
         base.InitializeFirstChance(iocProvider);
     }
