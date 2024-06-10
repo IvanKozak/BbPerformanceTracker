@@ -17,14 +17,15 @@ public class GreetViewModel : MvxViewModel
         _auth = auth;
         _config = config;
         _navigation = navigation;
-        SignInCommand = new MvxCommand(SignIn);
+        SignInCommand = new MvxAsyncCommand(SignIn);
     }
     public IMvxCommand SignInCommand { get; set; }
 
-    private async void SignIn()
+    private async Task SignIn()
     {
         AuthenticationResult authResult = null;
         authResult = await _auth.AcquireTokenInteractive([_config["UserRecords:Scope"]]);
         await _navigation.Navigate<ProfileViewModel, AuthenticationResult>(authResult);
+        await _navigation.Close(this);
     }
 }

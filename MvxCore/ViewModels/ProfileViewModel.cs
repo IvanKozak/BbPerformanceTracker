@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using Microsoft.Identity.Client;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -35,7 +34,8 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
         switch (d)
         {
             case "Home":
-                CurrentViewModel = Mvx.IoCProvider.Resolve<HomeViewModel>();
+                //CurrentViewModel = Mvx.IoCProvider.Resolve<HomeViewModel>();
+                await _navigation.Navigate<HomeViewModel, MvxObservableCollection<ShootingDrill>>(Drills);
                 break;
             default:
                 break;
