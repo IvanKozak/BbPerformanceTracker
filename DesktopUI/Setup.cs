@@ -8,6 +8,7 @@ using MvvmCross.IoC;
 using MvvmCross.Platforms.Wpf.Core;
 using MvxCore.Repositories;
 using MvxCore.Services;
+using MvxCore.ViewModels;
 using Serilog;
 using Serilog.Extensions.Logging;
 
@@ -27,6 +28,7 @@ public class Setup : MvxWpfSetup<MvxCore.App>
 
         Mvx.IoCProvider.RegisterType<IUserRepository, UserRepository>();
         Mvx.IoCProvider.RegisterType<IShootingDrillRepository, ShootingDrillRepository>();
+        Mvx.IoCProvider.RegisterType<HomeViewModel>();
 
         base.InitializeFirstChance(iocProvider);
     }

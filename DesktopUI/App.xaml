@@ -5,6 +5,10 @@
              xmlns:local="clr-namespace:DesktopUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Color x:Key="Primary">#03DAC6</Color>
+        <Color x:Key="PrimaryVariant">#018786</Color>
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+        <SolidColorBrush x:Key="PrimaryVariantBrush" Color="{StaticResource PrimaryVariant}"/>
     </Application.Resources>
 </views:MvxApplication>

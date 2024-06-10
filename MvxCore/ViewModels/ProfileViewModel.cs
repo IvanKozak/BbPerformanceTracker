@@ -1,5 +1,8 @@
 ﻿using System.Collections.Specialized;
 using Microsoft.Identity.Client;
+using MvvmCross;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using MvxCore.Helpers;
 using MvxCore.Models;
@@ -11,16 +14,34 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
 {
     private AuthenticationResult _authResult = default!;
     private readonly IShootingDrillRepository _drillRepo;
+    private readonly IMvxNavigationService _navigation;
     private readonly IUserRepository _userRepo;
     private string _fullName = "";
-    private User _loggedInUser;
+    private User? _loggedInUser;
     private MvxObservableCollection<ShootingDrill> _drills = new();
+    private MvxViewModel _currentViewModel;
 
-    public ProfileViewModel(IUserRepository userRepo, IShootingDrillRepository drillRepo)
+    public ProfileViewModel(IUserRepository userRepo, IShootingDrillRepository drillRepo, IMvxNavigationService navigation)
     {
         _userRepo = userRepo;
         _drillRepo = drillRepo;
+        _navigation = navigation;
+
+        NavigateCommand = new MvxAsyncCommand<string>(async d => await OnNavigate(d));
     }
+
+    private async Task OnNavigate(string? d)
+    {
+        switch (d)
+        {
+            case "Home":
+                CurrentViewModel = Mvx.IoCProvider.Resolve<HomeViewModel>();
+                break;
+            default:
+                break;
+        }
+    }
+
     public override void Prepare(AuthenticationResult parameter)
     {
         _authResult = parameter;
@@ -37,6 +58,16 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
         var drillList = await _drillRepo.GetAsync();
         Drills = new MvxObservableCollection<ShootingDrill>(drillList);
     }
+
+    public IMvxCommand<string> NavigateCommand { get; set; }
+
+
+    public MvxViewModel CurrentViewModel
+    {
+        get => _currentViewModel;
+        set => SetProperty(ref _currentViewModel, value);
+    }
+
 
     public User LoggedInUser
     {
@@ -98,10 +129,4 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
         RaisePropertyChanged(() => PostupPercentage);
         RaisePropertyChanged(() => ThreepointPercentage);
     }
-
-    private void AddDrill()
-    {
-
-    }
-
 }
