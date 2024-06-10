@@ -13,7 +13,7 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
     private readonly IShootingDrillRepository _drillRepo;
     private readonly IUserRepository _userRepo;
     private string _fullName = "";
-    private User _loggedInUser;
+    private User? _loggedInUser;
     private MvxObservableCollection<ShootingDrill> _drills = new();
 
     public ProfileViewModel(IUserRepository userRepo, IShootingDrillRepository drillRepo)
@@ -98,10 +98,4 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
         RaisePropertyChanged(() => PostupPercentage);
         RaisePropertyChanged(() => ThreepointPercentage);
     }
-
-    private void AddDrill()
-    {
-
-    }
-
 }

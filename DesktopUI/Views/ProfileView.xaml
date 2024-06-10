@@ -10,12 +10,12 @@
              xmlns:local="clr-namespace:DesktopUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,29 +27,22 @@
         </Grid.ColumnDefinitions>
 
         <!--Header-->
-        <TextBlock Text="Profile Page" FontSize="48" FontFamily="Segoe Ui Light" Grid.Row="1" Grid.Column="1" Margin="0 0 0 20"/>
+        <TextBlock Text="Profile Page" FontSize="20" FontFamily="Segoe Ui Light" Grid.Row="1" Grid.Column="1" Margin="0 0 0 20"/>
+
+        <StackPanel x:Name="Navigation" Grid.Row="2" Grid.RowSpan="3" Grid.Column="1">
+            <Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="Home" Margin="0, 10, 0, 10"/>
+            <Button Content="Drills" Command="{Binding NavigateCommand}" CommandParameter="Drills" Margin="0, 10, 0, 10"/>
+            <Button Content="Games" Command="{Binding NavigateCommand}" CommandParameter="Games" Margin="0, 10, 0, 10"/>
+        </StackPanel>
         
-        <!-- Greeting row-->
-        <StackPanel x:Name="Greeting" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+        <StackPanel x:Name="Greeting" Orientation="Horizontal" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
             <TextBlock Text="Hi, " FontSize="24" FontFamily="Segoe Ui"/>
             <TextBlock Text="{Binding FullName}"  FontSize="24" FontFamily="Segoe Ui"/>
             <TextBlock Text="!" FontSize="24" FontFamily="Segoe Ui"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-            <StackPanel Orientation="Vertical">
-                <Label Name="MidrangePercentage" Content="FG%" FontSize="24"/>
-                <TextBlock Text="{Binding MidrangePercentage}" FontSize="24"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Label Name="ThreepointPercentage" Content="3P%" FontSize="24"/>
-                <TextBlock Text="{Binding ThreepointPercentage}" FontSize="24"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <Label Name="PostupPercentage" Content="Postup%" FontSize="24"/>
-                <TextBlock Text="{Binding PostupPercentage}" FontSize="24"/>
-            </StackPanel>
-        </StackPanel>
-
+        <mvx:MvxContentControl>
+            
+        </mvx:MvxContentControl>
     </Grid>
 </views:MvxWpfView>
