@@ -3,12 +3,19 @@ using MvvmCross.ViewModels;
 using MvxCore.Models;
 
 namespace MvxCore.ViewModels;
-public class HomeViewModel : MvxViewModel<MvxObservableCollection<ShootingDrill>>
+public class HomeViewModel : MvxViewModel<HomeNavigationArgs>
 {
     private MvxObservableCollection<ShootingDrill> _drills = new();
-    public override void Prepare(MvxObservableCollection<ShootingDrill> parameter)
+    private MvxObservableCollection<ThreeOnThreeMatch> _matches = new();
+    private MatchesSummary _matchesSummary = default!;
+    private DrillsSummary _drillsSummary = default!;
+
+    public override void Prepare(HomeNavigationArgs args)
     {
-        Drills = parameter;
+        Drills = args.Drills;
+        Matches = args.Matches;
+        _matchesSummary = new(Matches);
+        _drillsSummary = new(Drills);
     }
 
     public MvxObservableCollection<ShootingDrill> Drills
@@ -32,30 +39,49 @@ public class HomeViewModel : MvxViewModel<MvxObservableCollection<ShootingDrill>
             }
 
             RaisePropertyChanged(() => Drills);
-            RaisePropertyChanged(() => MidrangePercentage);
-            RaisePropertyChanged(() => ThreepointPercentage);
-            RaisePropertyChanged(() => PostupPercentage);
+            RaisePropertyChanged(() => DrillsSummary);
         }
     }
 
-    private void OnDrillsChanged(object sender, NotifyCollectionChangedEventArgs e)
+    public MvxObservableCollection<ThreeOnThreeMatch> Matches
     {
-        RaisePropertyChanged(() => MidrangePercentage);
-        RaisePropertyChanged(() => PostupPercentage);
-        RaisePropertyChanged(() => ThreepointPercentage);
+        get => _matches;
+        set
+        {
+            if (_matches != value)
+            {
+                if (_matches != null)
+                {
+                    _matches.CollectionChanged -= OnMatchesChanged;
+                }
+
+                _matches = value;
+
+                if (_matches != null)
+                {
+                    _matches.CollectionChanged += OnMatchesChanged;
+                }
+            }
+
+            RaisePropertyChanged(() => Matches);
+            RaisePropertyChanged(() => MatchesSummary);
+
+        }
     }
 
-    public double MidrangePercentage
+    public MatchesSummary MatchesSummary
     {
-        get => _drills.Count > 0 ? Math.Round(100 * _drills.Average(d => d.MidrangeShots.Accuracy), 1) : 0;
-    }
-    public double PostupPercentage
-    {
-        get => _drills.Count > 0 ? Math.Round(100 * _drills.Average(d => d.PostUps.Accuracy), 1) : 0;
-    }
-    public double ThreepointPercentage
-    {
-        get => _drills.Count > 0 ? Math.Round(100 * _drills.Average(d => d.ThreePointers.Accuracy), 1) : 0;
+        get => _matchesSummary;
+        set => SetProperty(ref _matchesSummary, value);
     }
 
+    public DrillsSummary DrillsSummary
+    {
+        get => _drillsSummary;
+        set => SetProperty(ref _drillsSummary, value);
+    }
+
+    private void OnMatchesChanged(object? sender, NotifyCollectionChangedEventArgs e) => RaisePropertyChanged(() => MatchesSummary);
+
+    private void OnDrillsChanged(object? sender, NotifyCollectionChangedEventArgs e) => RaisePropertyChanged(() => DrillsSummary);
 }
