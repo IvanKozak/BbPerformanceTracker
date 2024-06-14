@@ -10,5 +10,7 @@
 
         <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
         <SolidColorBrush x:Key="PrimaryVariantBrush" Color="{StaticResource PrimaryVariant}"/>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Application.Resources>
 </views:MvxApplication>

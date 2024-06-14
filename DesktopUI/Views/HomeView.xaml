@@ -13,41 +13,30 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Grid.Row="0" Margin="5">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical">
-                    <Label Content="FG%" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text DrillsSummary.MidrangePercentage" FontSize="24"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="3P%" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text DrillsSummary.ThreepointPercentage" FontSize="24"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="Postup%" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text DrillsSummary.PostupPercentage" FontSize="24"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-
-        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Grid.Row="1" Margin="5">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical">
-                    <Label Content="PTS" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AveragePoints"  FontSize="24"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="AST" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AverageAssists" FontSize="24"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="REB" FontSize="24"/>
-                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AverageRebounds" FontSize="24"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
+        <UniformGrid Grid.Row="0" Columns="2">
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="5">
+                <UniformGrid Rows="2" Columns="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    <Label Content="Midrange%" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                    <Label Content="3P%" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="Postup%" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text DrillsSummary.MidrangePercentage" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text DrillsSummary.ThreepointPercentage" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text DrillsSummary.PostupPercentage" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </UniformGrid>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="5">
+                <UniformGrid Rows="2" Columns="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Label Content="PTS" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="AST" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="REB" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AveragePoints" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AverageAssists" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock mvx:Bi.nd="Text MatchesSummary.AverageRebounds" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </UniformGrid>
+            </Border>
+        </UniformGrid>
     </Grid>
 </views:MvxWpfView>

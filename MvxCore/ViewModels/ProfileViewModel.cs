@@ -17,8 +17,8 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
     private readonly IMvxNavigationService _navigation;
     private string _fullName = "";
     private User? _loggedInUser = default!;
-    private MvxObservableCollection<ShootingDrill> _drills = new();
-    private MvxObservableCollection<ThreeOnThreeMatch> _matches = new();
+    private MvxObservableCollection<ShootingDrill> _drills = default!;
+    private MvxObservableCollection<ThreeOnThreeMatch> _matches = default!;
 
     public ProfileViewModel(IUserRepository userRepo,
                             IShootingDrillRepository drillRepo,
@@ -43,6 +43,19 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
     public override async Task Initialize()
     {
         await base.Initialize();
+
+        await LoadData();
+        DataLoaded = true;
+
+        await _navigation.Navigate<HomeViewModel, HomeNavigationArgs>(new HomeNavigationArgs
+        {
+            Drills = _drills,
+            Matches = _matches
+        });
+    }
+
+    private async Task LoadData()
+    {
         _loggedInUser = await _userRepo.GetAsync();
         FullName = _loggedInUser.Nickname;
 
@@ -51,6 +64,21 @@ public class ProfileViewModel : MvxViewModel<AuthenticationResult>
         var matchList = await _matchRepo.GetAsync();
         _matches = new MvxObservableCollection<ThreeOnThreeMatch>(matchList);
     }
+
+    private bool _dataLoaded = false;
+
+    public bool DataLoaded
+    {
+        get => _dataLoaded;
+        set
+        {
+            SetProperty(ref _dataLoaded, value);
+            RaisePropertyChanged(() => DataNotLoaded);
+        }
+    }
+
+    public bool DataNotLoaded => !DataLoaded;
+
 
     public IMvxCommand<string> NavigateCommand { get; set; }
 

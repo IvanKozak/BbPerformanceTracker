@@ -5,8 +5,8 @@ using MvxCore.Models;
 namespace MvxCore.ViewModels;
 public class HomeViewModel : MvxViewModel<HomeNavigationArgs>
 {
-    private MvxObservableCollection<ShootingDrill> _drills = new();
-    private MvxObservableCollection<ThreeOnThreeMatch> _matches = new();
+    private MvxObservableCollection<ShootingDrill> _drills = default!;
+    private MvxObservableCollection<ThreeOnThreeMatch> _matches = default!;
     private MatchesSummary _matchesSummary = default!;
     private DrillsSummary _drillsSummary = default!;
 

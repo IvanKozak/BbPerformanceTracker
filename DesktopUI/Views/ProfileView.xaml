@@ -27,7 +27,7 @@
                 <TextBlock Text="Profile Page" FontSize="20" FontFamily="Segoe Ui Light" Grid.Row="0" Grid.Column="0" Margin="0 0 0 20"/>
 
                 <StackPanel x:Name="Navigation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWindow}}}">
-                    <Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="Home" Margin="0, 10, 0, 10"/>
+                    <Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="Home" IsEnabled="{Binding DataLoaded}" Margin="0, 10, 0, 10"/>
                     <Button Content="Drills" Command="{Binding NavigateCommand}" CommandParameter="Drills" Margin="0, 10, 0, 10"/>
                     <Button Content="Games" Command="{Binding NavigateCommand}" CommandParameter="Games" Margin="0, 10, 0, 10"/>
                 </StackPanel>
@@ -37,6 +37,12 @@
                     <TextBlock Text="{Binding FullName}"  FontSize="24" FontFamily="Segoe Ui"/>
                     <TextBlock Text="!" FontSize="24" FontFamily="Segoe Ui"/>
                 </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWindow}}}">
+                    <ProgressBar Height="40" Width="100" IsIndeterminate="True" Visibility="{Binding DataNotLoaded,Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+                
 
                 <ContentPresenter Content="{Binding}" Grid.Row="1" Grid.Column="1"/>
             </Grid>
