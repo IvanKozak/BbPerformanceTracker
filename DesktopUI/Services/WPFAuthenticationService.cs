@@ -47,6 +47,16 @@ public class WPFAuthenticationService : IAuthenticationService
             .ExecuteAsync();
     }
 
+    public async Task ClearTokenCache()
+    {
+        var accounts = await _publicClientApp.GetAccountsAsync();
+        while (accounts.Any())
+        {
+            await _publicClientApp.RemoveAsync(accounts.First());
+            accounts = await _publicClientApp.GetAccountsAsync();
+        }
+    }
+
     private static void Log(LogLevel level, string message, bool containsPii)
     {
         string logs = $"{level} {message}{Environment.NewLine}";

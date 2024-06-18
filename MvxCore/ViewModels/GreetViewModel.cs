@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -24,8 +25,18 @@ public class GreetViewModel : MvxViewModel
     private async Task SignIn()
     {
         AuthenticationResult authResult = null;
-        authResult = await _auth.AcquireTokenInteractive([_config["UserRecords:Scope"]]);
+
+        try
+        {
+            authResult = await _auth.AcquireTokenSilent([_config["UserRecords:Scope"]]);
+        }
+        catch (MsalUiRequiredException ex)
+        {
+
+            Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
+            authResult = await _auth.AcquireTokenInteractive([_config["UserRecords:Scope"]]);
+        }
+
         await _navigation.Navigate<ProfileViewModel, AuthenticationResult>(authResult);
-        await _navigation.Close(this);
     }
 }

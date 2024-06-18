@@ -5,4 +5,5 @@ public interface IAuthenticationService
 {
     Task<AuthenticationResult> AcquireTokenInteractive(string[] scopes);
     Task<AuthenticationResult> AcquireTokenSilent(string[] scopes);
+    Task ClearTokenCache();
 }
