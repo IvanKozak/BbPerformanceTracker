@@ -5,7 +5,7 @@ namespace DesktopUI.Views;
 /// <summary>
 /// Interaction logic for ProfileView.xaml
 /// </summary>
-public partial class ProfileView : MvxWindow<ProfileViewModel>
+public partial class ProfileView : MvxWpfView<ProfileViewModel>
 {
     public ProfileView()
     {

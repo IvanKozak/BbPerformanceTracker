@@ -1,11 +1,14 @@
 ﻿using System.IO;
 using System.Net.Http;
+using System.Windows.Controls;
+using DesktopUI.Presentation;
 using DesktopUI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.Platforms.Wpf.Core;
+using MvvmCross.Platforms.Wpf.Presenters;
 using MvxCore.Repositories;
 using MvxCore.Services;
 using Serilog;
@@ -44,6 +47,11 @@ public class Setup : MvxWpfSetup<MvxCore.App>
     protected override ILoggerProvider? CreateLogProvider()
     {
         return new SerilogLoggerProvider();
+    }
+
+    protected override IMvxWpfViewPresenter CreateViewPresenter(ContentControl root)
+    {
+        return new CustomWpfViewPresenter(root);
     }
 
     private IConfiguration AddConfiguration()

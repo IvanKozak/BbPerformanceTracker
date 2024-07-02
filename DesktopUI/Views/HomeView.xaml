@@ -12,11 +12,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-
-        <UniformGrid Grid.Row="0" Columns="2">
+        <Button Grid.Row="0" HorizontalAlignment="Right" Content="X" Command="{Binding CloseCommand}"/>
+        <UniformGrid Grid.Row="1" Columns="2">
             <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="5">
                 <UniformGrid Rows="2" Columns="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                     <Label Content="Midrange%" VerticalAlignment="Center"  HorizontalAlignment="Center"/>

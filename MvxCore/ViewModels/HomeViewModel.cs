@@ -1,4 +1,6 @@
 ﻿using System.Collections.Specialized;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using MvxCore.Models;
 
@@ -9,6 +11,15 @@ public class HomeViewModel : MvxViewModel<HomeNavigationArgs>
     private MvxObservableCollection<ThreeOnThreeMatch> _matches = default!;
     private MatchesSummary _matchesSummary = default!;
     private DrillsSummary _drillsSummary = default!;
+    private readonly IMvxNavigationService _navigationService;
+
+    public HomeViewModel(IMvxNavigationService navigationService)
+    {
+        _navigationService = navigationService;
+        CloseCommand = new MvxAsyncCommand(OnClose);
+    }
+
+    private async Task OnClose() => await _navigationService.Close(this);
 
     public override void Prepare(HomeNavigationArgs args)
     {
@@ -17,6 +28,8 @@ public class HomeViewModel : MvxViewModel<HomeNavigationArgs>
         _matchesSummary = new(Matches);
         _drillsSummary = new(Drills);
     }
+
+    public IMvxCommand CloseCommand { get; set; }
 
     public MvxObservableCollection<ShootingDrill> Drills
     {
