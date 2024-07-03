@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DesktopUI.Views;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Logging;
 using MvvmCross.Platforms.Wpf.Presenters;
@@ -20,49 +19,55 @@ public class CustomWpfViewPresenter : MvxWpfViewPresenter
     {
         base.RegisterAttributeTypes();
 
-        AttributeTypesToActionsDictionary.Register<RegionPresentationAttribute>(
+        AttributeTypesToActionsDictionary.Register<NestedPresentationAttribute>(
                 (_, attribute, request) =>
                 {
                     var view = WpfViewLoader.CreateView(request);
                     return ShowRegionView(view, attribute, request);
                 },
-                (viewModel, _) => CloseRegionView(viewModel));
+                (viewModel, _) => CloseNestedView(viewModel));
     }
 
-    protected virtual Task<bool> ShowRegionView(FrameworkElement element, RegionPresentationAttribute attribute, MvxViewModelRequest request)
+    protected virtual Task<bool> ShowRegionView(FrameworkElement element, NestedPresentationAttribute attribute, MvxViewModelRequest request)
     {
         var contentControl = FrameworkElementsDictionary.Keys.Last();
-        var parentView = (ContentControl)FrameworkElementsDictionary[contentControl].FirstOrDefault(v => v.GetType() == typeof(ProfileView));
+        var parentView = (ContentControl)FrameworkElementsDictionary[contentControl].FirstOrDefault(v => v.GetType() == attribute.ParentType);
 
         FrameworkElementsDictionary[contentControl].Push(element);
         parentView.Content = element;
         return Task.FromResult(true);
     }
 
-    protected virtual Task<bool> CloseRegionView(IMvxViewModel toClose)
+    protected virtual Task<bool> CloseNestedView(IMvxViewModel toClose)
     {
         var item = FrameworkElementsDictionary.FirstOrDefault(i => i.Value.Any() && (i.Value.Peek() as IMvxWpfView)?.ViewModel == toClose);
         var contentControl = item.Key;
         var elements = item.Value;
-        var parentView = (ContentControl)elements.FirstOrDefault(v => v.GetType() == typeof(ProfileView));
+
 
         if (elements.Any())
             elements.Pop(); // Pop closing view
 
         var previousElement = elements.Peek();
-        if (Attribute.IsDefined(previousElement.GetType(), typeof(RegionPresentationAttribute)))
-        {
-            parentView.Content = previousElement;
-        }
-        else
+
+        //if previous view is parent -> close parent view
+        if (Attribute.IsDefined(previousElement.GetType(), typeof(NestedPresentationAttribute)) == false)
         {
             var v = ((IMvxWpfView)previousElement).ViewModel;
-
             CloseContentView(v);
+
+            return Task.FromResult(true);
         }
 
-        return Task.FromResult(true);
+        //otherwise set previous element as content of parent view
+        var parent = elements.FirstOrDefault(e => Attribute.IsDefined(e.GetType(), typeof(NestedPresentationAttribute)) == false);
+        if (parent is not null)
+        {
+            ((ContentControl)parent).Content = previousElement;
+            return Task.FromResult(true);
+        }
 
+        return Task.FromResult(false);
     }
 
     public override async Task<bool> Close(IMvxViewModel viewModel)
@@ -76,9 +81,9 @@ public class CustomWpfViewPresenter : MvxWpfViewPresenter
         if (elements is not null)
         {
             var element = elements.Peek();
-            if (Attribute.IsDefined(element.GetType(), typeof(RegionPresentationAttribute)))
+            if (Attribute.IsDefined(element.GetType(), typeof(NestedPresentationAttribute)))
             {
-                await CloseRegionView(viewModel);
+                await CloseNestedView(viewModel);
             }
             else
             {
@@ -94,6 +99,12 @@ public class CustomWpfViewPresenter : MvxWpfViewPresenter
     }
 }
 
-public class RegionPresentationAttribute : MvxBasePresentationAttribute
+public class NestedPresentationAttribute : MvxBasePresentationAttribute
 {
+    public NestedPresentationAttribute(Type parentType)
+    {
+        ParentType = parentType;
+    }
+
+    public Type ParentType { get; }
 }

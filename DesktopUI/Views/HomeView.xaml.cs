@@ -5,7 +5,7 @@ namespace DesktopUI.Views;
 /// <summary>
 /// Interaction logic for HomeView.xaml
 /// </summary>
-[RegionPresentation]
+[NestedPresentation(typeof(ProfileView))]
 public partial class HomeView
 {
     public HomeView()
